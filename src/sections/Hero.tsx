@@ -94,7 +94,7 @@ export function Hero() {
             courses={COURSES}
             free={FREE}
             meet={[{ day: 3, hour: 19 }]}
-            labels={[{ day: 3, hour: 19, label: "Kevin · Aïcha", sub: "créneau commun" }]}
+            labels={[{ day: 3, hour: 19, label: "Kevin · Aïcha", sub: "commun" }]}
             nowLine
             sheet={{
               day: 4,
