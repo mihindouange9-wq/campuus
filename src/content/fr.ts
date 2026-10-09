@@ -130,7 +130,12 @@ export const footer = {
   ],
   soon: "Bientôt",
   stage: "Phase de conception · Gabon, 2026",
-  credit: "Conçu par MÉTHODE AURA",
+  credit: "Conçu et réalisé par MÉTHODE AURA",
+  partner: {
+    label: "En partenariat avec",
+    title: "MÉTHODE AURA, studio de marque et de produit.",
+    text: "Identité CAMPUUS, site public et application de démonstration : conception et réalisation. Du concept à l’impact.",
+  },
 };
 
 export const partners = {

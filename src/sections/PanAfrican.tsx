@@ -12,7 +12,7 @@ export function PanAfrican() {
     <section className="section pan" id="panafricain" aria-labelledby="pan-title">
       <div className="wrap">
         <div className="pan__head">
-          <h2 id="pan-title" data-reveal>{panafrican.title}</h2>
+          <h2 id="pan-title" data-reveal data-split>{panafrican.title}</h2>
           <p className="lead" data-reveal>{panafrican.lead}</p>
         </div>
         <div className="pan__chart" data-reveal role="img" aria-label="Grille des heures de révision partagées entre neuf villes d'Afrique francophone, de 19 h à 22 h heure de Libreville">

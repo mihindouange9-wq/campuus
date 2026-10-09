@@ -10,13 +10,14 @@ import { PanAfrican } from "../sections/PanAfrican";
 import { Trust } from "../sections/Trust";
 import { Final } from "../sections/Final";
 import { Footer } from "../sections/Footer";
-import { setupReveals } from "../lib/motion";
+import { setupInk, setupReveals } from "../lib/motion";
 import "./landing.css";
 
 export default function Landing() {
   const main = useRef<HTMLElement>(null);
   const { hash } = useLocation();
   useEffect(() => setupReveals(main.current!), []);
+  useEffect(() => setupInk(document.body), []);
   useEffect(() => {
     if (!hash) return;
     const el = document.querySelector(hash);

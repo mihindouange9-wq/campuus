@@ -62,7 +62,7 @@ export function Features() {
   return (
     <section className="section features" id="fonctionnalites" aria-labelledby="features-title">
       <div className="wrap">
-        <h2 id="features-title" data-reveal>{features.title}</h2>
+        <h2 id="features-title" data-reveal data-split>{features.title}</h2>
         <ul className="features__list">
           {features.items.map((f) => {
             const Vig = VIGNETTES[f.id];

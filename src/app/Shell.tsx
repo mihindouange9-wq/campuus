@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { setupInk } from "../lib/motion";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { Bell, Home, Search, Inbox, MessageSquare, Users, UserRound, RotateCcw, ExternalLink } from "lucide-react";
 import { Mark } from "../brand/Logo";
@@ -28,6 +29,7 @@ export default function Shell() {
   const toasts = useToasts();
   const [confirmReset, setConfirmReset] = useState(false);
   useEffect(() => { window.scrollTo(0, 0); }, [location.pathname]);
+  useEffect(() => setupInk(document.body), []);
 
   const badge = (to: string) => (to === "/app/notifications" ? unread : to === "/app/messages" ? unreadMessages : to === "/app/demandes" ? pendingReceived : 0);
 
@@ -78,7 +80,9 @@ export default function Shell() {
       </aside>
 
       <main className="app-main" id="contenu">
-        <Outlet />
+        <div className="route" key={location.pathname}>
+          <Outlet />
+        </div>
       </main>
 
       <nav className="app-tabs" aria-label="Navigation principale">

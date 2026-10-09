@@ -5,6 +5,7 @@ import { Button, Field, Input, Select, Textarea } from "../components/ui";
 import { partners } from "../content/fr";
 import { api } from "../services/api";
 import type { PartnerContact } from "../data/types";
+import { setupInk, setupReveals } from "../lib/motion";
 import "./landing.css";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -14,6 +15,8 @@ export function Component() {
   const [errors, setErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   useEffect(() => { document.title = "Partenaires et investisseurs — CAMPUUS"; window.scrollTo(0, 0); }, []);
+  useEffect(() => setupInk(document.body), []);
+  useEffect(() => setupReveals(document.querySelector("main")!), []);
 
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) => setForm((f) => ({ ...f, [k]: e.target.value }));
 

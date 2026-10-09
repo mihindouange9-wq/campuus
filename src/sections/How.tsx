@@ -55,7 +55,7 @@ export function How() {
   return (
     <section className="section how" id="fonctionnement" aria-labelledby="how-title">
       <div className="wrap">
-        <h2 id="how-title" data-reveal>{how.title}</h2>
+        <h2 id="how-title" data-reveal data-split>{how.title}</h2>
         <ol className="how__steps">
           {how.steps.map((s, i) => {
             const Screen = SCREENS[s.screen as keyof typeof SCREENS];

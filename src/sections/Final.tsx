@@ -1,3 +1,4 @@
+import type React from "react";
 import { Link } from "react-router-dom";
 import { ButtonLink } from "../components/ui";
 import { final } from "../content/fr";
@@ -7,10 +8,10 @@ export function Final() {
     <section className="section final" data-tone="bordeaux" aria-labelledby="final-title">
       <div className="wrap final__grid">
         <div className="final__board" aria-hidden="true">
-          {Array.from({ length: 24 }, (_, i) => <span key={i} className={`final__cell${[5, 9, 14, 16].includes(i) ? " final__cell--free" : ""}${i === 15 ? " final__cell--me" : ""}`} />)}
+          {Array.from({ length: 24 }, (_, i) => <span key={i} className={`final__cell${[5, 9, 14, 16].includes(i) ? " final__cell--free" : ""}${i === 15 ? " final__cell--me" : ""}`} style={{ "--i": i } as React.CSSProperties} />)}
         </div>
         <div className="final__copy">
-          <h2 id="final-title" data-reveal>{final.title}</h2>
+          <h2 id="final-title" data-reveal data-split>{final.title}</h2>
           <p className="lead" data-reveal>{final.text}</p>
           <div className="final__cta" data-reveal>
             <ButtonLink to="/rejoindre" size="lg" arrow>{final.cta}</ButtonLink>

@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Logo } from "../brand/Logo";
 import { ButtonLink } from "../components/ui";
 import { nav } from "../content/fr";
+import { setupProgress } from "../lib/motion";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const bar = useRef<HTMLSpanElement>(null);
   useEffect(() => { setOpen(false); }, [location]);
+  useEffect(() => setupProgress(bar.current!), []);
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -30,6 +33,7 @@ export function Header() {
           </button>
         </div>
       </div>
+      <span className="progress" ref={bar} aria-hidden="true" />
       <div id="menu-mobile" className={`site-menu${open ? " site-menu--open" : ""}`} hidden={!open}>
         <nav aria-label="Navigation mobile">
           {nav.links.map((l) => <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>)}

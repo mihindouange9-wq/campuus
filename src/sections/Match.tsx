@@ -11,7 +11,7 @@ export function Match() {
     <section className="section match" id="mise-en-relation" aria-labelledby="match-title">
       <div className="wrap">
         <div className="match__head">
-          <h2 id="match-title" data-reveal>{match.title}</h2>
+          <h2 id="match-title" data-reveal data-split>{match.title}</h2>
           <p className="lead" data-reveal>{match.lead}</p>
         </div>
         <div className="match__boards">

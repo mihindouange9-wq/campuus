@@ -6,6 +6,7 @@ import "@fontsource-variable/inter/wght.css";
 import "./styles/tokens.css";
 import "./styles/base.css";
 import "./styles/components.css";
+import "./styles/motion.css";
 import { setApi } from "./services/api";
 import { demoApi } from "./services/demo";
 import Landing from "./pages/Landing";

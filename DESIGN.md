@@ -459,3 +459,20 @@ Le symbole est formé des deux U du nom, imbriqués sur une grille 100 × 90 (br
 - **Don't** représenter l'Afrique par une carte décorative : la dimension panafricaine est une grille horaire (villes × heures, bandes horizon, point bordeaux « maintenant »).
 - **Don't** introduire une quatrième couleur dominante ni un gris : toute nuance dérive du bordeaux, de l'horizon ou de l'ivoire.
 - **Don't** rendre la grille comme une table HTML neutre ; elle garde en-tête de semaine, marge d'heures tabulaires et, sur le site, la perforation.
+
+
+## Mouvement (v1.1, 9 octobre 2026)
+
+Le client a demandé une page plus vivante : le langage de mouvement est orchestré dans `src/lib/motion.ts` et `src/styles/motion.css`, toujours désactivé sous `prefers-reduced-motion`.
+
+- **L'encre au clic** : une goutte Cool Horizon part du point de contact et s'étale en multiplication sur tout élément interactif (`setupInk`, `.ink`, 650 ms).
+- **Boutons** : pression (scale 0,98), balayage de teinte de gauche à droite au survol, flèche qui avance de 4 px, ombre portée légère sur le bloc bordeaux.
+- **Liens** : le soulignement s'épaissit (1 → 2 px) ; dans la navigation, un filet Cool Horizon se trace sous le lien.
+- **Titres** : les mots montent un à un derrière leur ligne (`[data-split]`, 0,9 s, décalage 45 ms).
+- **Filets de section** : se tracent de gauche à droite à l'entrée (`.section.is-in::before`, 1,1 s).
+- **Grilles** : les créneaux s'impriment de gauche à droite ; sur la planche « créneaux communs », l'encre Cool Horizon glisse de la droite par-dessus l'encre bordeaux et les étiquettes se posent quand les encres se recouvrent.
+- **Séquences** : la conversation du problème arrive message par message puis « Sans réponse » se tamponne ; les trois gestes jouent l'un après l'autre (frappe, filtres, résultats, formulaire, pression du bouton, « Acceptée ») ; les bandes horaires panafricaines se tracent, les points pilotes apparaissent ; les états de confiance se tamponnent ; la grille de clôture est parcourue par un chenillard Cool Horizon.
+- **Hero** : entrée (mots, colonne, cours qui s'impriment) puis la boucle existante ; la feuille se pose avec une rotation de −1,5° à 0.
+- **Lecture** : barre de progression bordeaux de 2 px sous l'en-tête.
+- **Application** : transition d'écran (fondu + 10 px), listes en cascade (délais 40 → 340 ms), tampons de statut, bulles de messagerie qui arrivent, onglet actif qui glisse, encre au clic, pulsations sur « disponible maintenant » et la ligne « maintenant ».
+- **Pied de page** : bloc « En partenariat avec » MÉTHODE AURA (logo ivoire sur bordeaux profond, selon sa charte), révélé comme les autres blocs.

@@ -4,7 +4,7 @@ import { Search } from "lucide-react";
 import { ButtonLink } from "../components/ui";
 import { Timetable } from "../components/Timetable";
 import { hero } from "../content/fr";
-import { gsap, prefersReducedMotion, useGSAP } from "../lib/motion";
+import { gsap, prefersReducedMotion, splitWords, useGSAP } from "../lib/motion";
 
 const COURSES = [
   { day: 0, hour: 8, span: 2, label: "Comptabilité", sub: "Amphi B" },
@@ -38,29 +38,41 @@ export function Hero() {
       const accepted = scope.querySelector<HTMLElement>("[data-state='accepted']")!;
       const meet = gsap.utils.toArray<HTMLElement>(".slot--meet, .slot--label", scope);
       const caret = scope.querySelector<HTMLElement>(".hero__caret")!;
+      const courses = gsap.utils.toArray<HTMLElement>(".slot--course", scope);
+      const words = splitWords(scope.querySelector<HTMLElement>("h1")!);
+      const copy = gsap.utils.toArray<HTMLElement>(".hero__copy > :not(h1)", scope);
       const text = hero.search;
 
       if (prefersReducedMotion()) {
         typed.textContent = text;
         gsap.set(sent, { autoAlpha: 0 });
+        gsap.set(words, { yPercent: 0 });
         return;
       }
-      const tl = gsap.timeline({ repeat: -1, repeatDelay: 3.2, defaults: { ease: "expo.out" } });
+      // Entrée : le titre monte mot à mot, le reste de la colonne suit, les cours s'impriment sur la grille
+      gsap.set(words, { yPercent: 110 });
+      gsap.set(copy, { autoAlpha: 0, y: 14 });
+      gsap.set(courses, { scaleY: 0.2, autoAlpha: 0, transformOrigin: "50% 100%" });
+      const intro = gsap.timeline({ defaults: { ease: "expo.out" } });
+      intro.to(words, { yPercent: 0, duration: 0.9, stagger: 0.05 }, 0.1)
+        .to(copy, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.5)
+        .to(courses, { scaleY: 1, autoAlpha: 1, duration: 0.5, stagger: { each: 0.06, from: "start" } }, 0.3);
+      const tl = gsap.timeline({ repeat: -1, repeatDelay: 3.2, delay: 0.9, defaults: { ease: "expo.out" } });
       const typing = { n: 0 };
       tl.set(typed, { textContent: "" })
         .set(slots, { autoAlpha: 0, scaleY: 0.3, transformOrigin: "50% 100%" })
-        .set(sheet, { autoAlpha: 0, y: -14 })
+        .set(sheet, { autoAlpha: 0, y: -18, rotate: -1.5 })
         .set([sent, accepted, meet], { autoAlpha: 0 })
         .set(caret, { autoAlpha: 1 })
         .to(typing, { n: text.length, duration: 1.3, ease: "none", onUpdate: () => { typed.textContent = text.slice(0, Math.round(typing.n)); } }, 0.6)
         .to(caret, { autoAlpha: 0, duration: 0.2 }, "+=0.3")
         .to(slots, { autoAlpha: 1, scaleY: 1, duration: 0.55, stagger: { each: 0.12, from: "start" } }, "+=0.1")
-        .to(sheet, { autoAlpha: 1, y: 0, duration: 0.7 }, "+=0.5")
+        .to(sheet, { autoAlpha: 1, y: 0, rotate: 0, duration: 0.8 }, "+=0.5")
         .to(sent, { autoAlpha: 1, duration: 0.3 }, "<+0.3")
         .to(sent, { autoAlpha: 0, duration: 0.25 }, "+=1.6")
         .to(accepted, { autoAlpha: 1, duration: 0.3 }, "<")
         .to(meet, { autoAlpha: 1, duration: 0.4 }, "<");
-      return () => { tl.kill(); };
+      return () => { tl.kill(); intro.kill(); };
     },
     { scope: root },
   );

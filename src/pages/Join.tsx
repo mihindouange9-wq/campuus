@@ -6,6 +6,7 @@ import { join } from "../content/fr";
 import { api } from "../services/api";
 import { COUNTRIES, FIELDS, INSTITUTIONS } from "../data/mock";
 import { LEVELS, type PilotSignup } from "../data/types";
+import { setupInk, setupReveals } from "../lib/motion";
 import "./landing.css";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -16,6 +17,8 @@ export function Component() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   useEffect(() => { document.title = "Rejoindre la communauté pilote — CAMPUUS"; window.scrollTo(0, 0); }, []);
+  useEffect(() => setupInk(document.body), []);
+  useEffect(() => setupReveals(document.querySelector("main")!), []);
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const institutions = INSTITUTIONS.filter((i) => i.country === form.country);
 

@@ -33,6 +33,17 @@ export function Footer() {
           </div>
         ))}
       </div>
+
+      {/* Le partenaire qui a conçu et réalisé la marque, le site et l'application : logo ivoire, tel que sa charte le fixe sur fond sombre. */}
+      <div className="wrap site-footer__partner" data-reveal>
+        <span className="site-footer__partner-label">{footer.partner.label}</span>
+        <img className="site-footer__partner-logo" src="/partenaires/methode-aura.png" alt="MÉTHODE AURA" width="800" height="246" loading="lazy" decoding="async" />
+        <p className="site-footer__partner-text">
+          <b>{footer.partner.title}</b>
+          <span>{footer.partner.text}</span>
+        </p>
+      </div>
+
       <div className="wrap site-footer__bottom">
         <span>© 2026 CAMPUUS</span>
         <span>{footer.credit}</span>
