@@ -27,7 +27,7 @@
 .hero { --row: 44px; position: relative; padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(3rem, 5vw, 5rem); overflow: hidden; }
 .hero__grid { position: relative; display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2rem, 4vw, 4.5rem); align-items: start; }
 /* La colonne de gauche est réglée au même pas que la grille : mêmes filets, même origine (sous l'en-tête des jours) */
-.hero__copy { display: grid; gap: 0; margin-top: calc(0.75rem + 30px + 28px); background-image: linear-gradient(to bottom, var(--rule) 1px, transparent 1px); background-size: 100% var(--row); background-position: 0 -1px; }
+.hero__copy { display: grid; gap: 0; margin-top: calc(0.75rem + 30px + 28px); padding: 0 1.25rem 1rem; margin-inline: -1.25rem; background-color: rgb(247 242 224 / 0.62); background-image: linear-gradient(to bottom, var(--rule) 1px, transparent 1px); background-size: 100% var(--row); background-position: 0 -1px; border-radius: 3px; }
 .hero h1 { max-width: 12ch; font-size: 4rem; line-height: calc(var(--row) * 2); margin: 0 0 var(--row); }
 .hero .lead { margin: 0; min-height: calc(var(--row) * 2); display: flex; align-items: center; line-height: 1.5; }
 .hero__search { height: var(--row); min-height: 0; margin: var(--row) 0 0; }
@@ -63,7 +63,7 @@
 @media (max-width: 1240px) { .hero h1 { font-size: 3.25rem; } }
 @media (max-width: 1000px) {
   .hero__grid { grid-template-columns: 1fr; }
-  .hero__copy { margin-top: 0; background-image: none; gap: 1.25rem; }
+  .hero__copy { margin-top: 0; background-image: none; gap: 1.25rem; padding: 1.25rem; margin-inline: 0; }
   .hero h1 { max-width: 16ch; font-size: var(--fs-display); line-height: 1.05; margin: 0; }
   .hero .lead { min-height: 0; display: block; }
   .hero__search { margin: 0; height: auto; min-height: 52px; }
@@ -77,7 +77,8 @@
 }
 
 /* Sections : des blocs séparés par de vrais vides, un filet en tête */
-.section { border-top: 1px solid var(--line); }
+.section { border-top: 1px solid var(--line); background: rgb(247 242 224 / 0.52); }
+.hero, .final { background: transparent; }
 .section h2 { max-width: 20ch; }
 .section .lead { margin-top: 1rem; }
 
@@ -213,7 +214,7 @@
 @media (max-width: 860px) { .trust__grid { grid-template-columns: 1fr; } }
 
 /* Clôture : le même bain, en bordeaux */
-.final { background: var(--bg); color: var(--fg); border-top: 0; }
+.final { background: var(--bordeaux); color: var(--fg); border-top: 0; }
 .final__grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(2rem, 5vw, 6rem); align-items: center; }
 .final__board { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; border: 1px solid var(--rule-on-dark-strong); max-width: 360px; }
 .final__cell { aspect-ratio: 1; border-right: 1px solid var(--rule-on-dark); border-bottom: 1px solid var(--rule-on-dark); }
@@ -227,7 +228,7 @@
 @media (max-width: 860px) { .final__grid { grid-template-columns: 1fr; } .final__board { max-width: 240px; order: 2; } }
 
 /* Pied de page */
-.site-footer { background: var(--bg); color: var(--fg); padding-block: 3.5rem 1.5rem; }
+.site-footer { background: var(--bordeaux-deep); color: var(--fg); padding-block: 3.5rem 1.5rem; }
 .site-footer__grid { display: grid; grid-template-columns: 1.6fr repeat(4, 1fr); gap: 2.5rem 2rem; }
 .site-footer__about { display: grid; gap: 1rem; align-content: start; }
 .site-footer__about p { color: var(--paper-muted); font-size: 0.9375rem; max-width: 40ch; }
@@ -243,7 +244,7 @@
 @media (max-width: 520px) { .site-footer__grid { grid-template-columns: 1fr; } }
 
 /* Pages secondaires (partenaires, rejoindre) */
-.page { padding-block: clamp(2.5rem, 5vw, 5rem) var(--section); }
+.page { padding-block: clamp(2.5rem, 5vw, 5rem) var(--section); background: rgb(247 242 224 / 0.55); }
 .page__head { max-width: 64ch; display: grid; gap: 1rem; }
 .page__stage { padding: 0.9rem 1.1rem; border: 1px solid var(--bordeaux); color: var(--bordeaux); font-weight: 500; font-size: var(--fs-small); max-width: 70ch; }
 .page__sections { display: grid; gap: 0; margin-top: 3rem; border-top: 1px solid var(--line-strong); }

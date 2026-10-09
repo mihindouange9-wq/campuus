@@ -66,41 +66,7 @@ table { border-collapse: collapse; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
-/* ───────────── La nuance : le fond vit, lentement, dans les trois couleurs de la charte ─────────────
-   Deux nappes fixes de dégradés radiaux (Cool Horizon, bordeaux atténué, ivoire et leur mélange) dérivent
-   l'une contre l'autre sur 40 à 60 s. Les surfaces posées (feuilles, grilles, formulaires) restent ivoire :
-   elles se lisent comme des feuilles sur le bain. Intensités plafonnées pour garder 4,5:1 sur le texte secondaire. */
-body::before, body::after {
-  content: "";
-  position: fixed;
-  inset: -45vmax;
-  z-index: -1;
-  pointer-events: none;
-  will-change: transform;
-}
-body::before {
-  background:
-    radial-gradient(50% 46% at 24% 30%, rgb(128 174 232 / 0.46) 0%, rgb(128 174 232 / 0) 70%),
-    radial-gradient(46% 50% at 76% 70%, rgb(91 0 21 / 0.17) 0%, rgb(91 0 21 / 0) 70%),
-    radial-gradient(30% 30% at 68% 22%, rgb(247 242 224 / 0.95) 0%, rgb(247 242 224 / 0) 70%),
-    radial-gradient(34% 30% at 50% 56%, rgb(46 0 19 / 0.08) 0%, rgb(46 0 19 / 0) 70%);
-  animation: nuance-a 46s ease-in-out infinite alternate;
-}
-body::after {
-  background:
-    radial-gradient(36% 34% at 32% 74%, rgb(91 0 21 / 0.12) 0%, rgb(91 0 21 / 0) 70%),
-    radial-gradient(48% 44% at 74% 28%, rgb(128 174 232 / 0.26) 0%, rgb(128 174 232 / 0) 70%),
-    radial-gradient(26% 26% at 12% 12%, rgb(128 174 232 / 0.28) 0%, rgb(128 174 232 / 0) 70%);
-  animation: nuance-b 64s ease-in-out infinite alternate;
-}
-@keyframes nuance-a {
-  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-  50% { transform: translate(7vw, -5vh) rotate(9deg) scale(1.08); }
-  100% { transform: translate(-6vw, 6vh) rotate(-7deg) scale(1.03); }
-}
-@keyframes nuance-b {
-  0% { transform: translate(0, 0) rotate(0deg) scale(1.04); }
-  50% { transform: translate(-8vw, 4vh) rotate(-10deg) scale(1); }
-  100% { transform: translate(6vw, -7vh) rotate(8deg) scale(1.1); }
-}
-@media (prefers-reduced-motion: reduce) { body::before, body::after { animation: none; } }
+/* ───────────── La nuance : le canvas des nuages (src/components/Nuance.tsx) ─────────────
+   Les surfaces de lecture reçoivent un voile ivoire qui laisse voir les nuages tout en gardant le texte lisible. */
+.nuance { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; image-rendering: auto; filter: blur(14px) saturate(1.05); transform: scale(1.06); }
+.veil { background: rgb(247 242 224 / 0.5); }

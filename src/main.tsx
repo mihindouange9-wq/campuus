@@ -10,6 +10,7 @@ import "./styles/motion.css";
 import { setApi } from "./services/api";
 import { demoApi } from "./services/demo";
 import Landing from "./pages/Landing";
+import { Nuance } from "./components/Nuance";
 
 setApi(demoApi);
 
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    <Nuance />
     <RouterProvider router={router} />
   </StrictMode>,
 );
