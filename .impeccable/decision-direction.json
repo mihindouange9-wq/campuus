@@ -1,0 +1,145 @@
+{
+  "title": "CAMPUUS — choisir le monde visuel",
+  "question": "Le tirage a désigné « L'emploi du temps ». Le garder, prendre une alternative, ou relancer.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "L'emploi du temps",
+      "kicker": "THE ROLL",
+      "lineage": "La grille hebdomadaire affichée à l'entrée de chaque amphi et collée dans chaque cahier",
+      "thesis": "La disponibilité est la première information : CAMPUUS se lit comme une grille de créneaux où l'aide apparaît là où quelqu'un est libre.",
+      "palette": ["#F7F2E0", "#5B0015", "#80AEE8", "#2A1A1E"],
+      "materials": ["grille de filets fins sur ivoire", "blocs de cours en bordeaux plein", "créneaux libres en Cool Horizon", "chiffres tabulaires"],
+      "viewport": "Toute la première vue est une grille lundi → samedi, 8 h → 20 h, tracée en filets fins sur Ivory Mist. En haut à gauche, le titre « Bloqué sur un cours ? Trouve quelqu'un qui peut t'aider. » occupe trois colonnes de la grille, avec le champ de recherche posé dans la ligne 8 h. À la frappe de « Actualisation et VAN », les créneaux libres d'Aïcha (USTM), Loïc (Omar Bongo) et Nadège (Douala) s'allument en Cool Horizon dans la grille, et la demande d'aide vient se poser dans le créneau « ce soir 19 h ». Le bouton « Rejoindre CAMPUUS » est un bloc bordeaux plein inséré dans la grille, pas un bouton flottant. Une ligne « maintenant » traverse la grille et avance en temps réel.",
+      "risk": "Peut se lire comme une appli d'agenda si la recherche par chapitre n'est pas au premier plan ; la grille doit rester un décor fonctionnel, jamais un tableau de données.",
+      "raised": [
+        { "from": "challenger-riso", "raise": "Engagement total sur deux encres : bordeaux et Cool Horizon se superposent (mix-blend-mode multiply) et la zone de recouvrement est la mise en relation, visible dans le hero et dans les fiches." },
+        { "from": "challenger-drum", "raise": "Une ligne « maintenant » balaie la grille en temps réel et dit toujours où l'on est ; c'est l'unique animation permanente de la page." },
+        { "from": "challenger-specimen", "raise": "La hiérarchie du hero tient par l'échelle seule : le nom du chapitre recherché s'affiche énorme dans la grille, sans étiquette ni kicker." },
+        { "from": "challenger-chromatophore", "raise": "La recherche change l'état de la grille en place (créneaux qui s'allument) au lieu de charger une autre vue." },
+        { "from": "challenger-leather", "raise": "La grille est un objet imprimé : marge perforée, en-tête de semaine, pli, jamais une table HTML neutre." },
+        { "from": "challenger-quarry", "raise": "Les sections s'empilent comme des blocs distincts séparés par de vrais vides d'ivoire, densité et calme alternés." }
+      ],
+      "wireframe": { "cols": 12, "rows": 10, "regions": [
+        { "label": "nav", "x": 0, "y": 0, "w": 12, "h": 1 },
+        { "label": "titre + recherche (3 colonnes de grille)", "x": 0, "y": 1, "w": 5, "h": 5, "accent": true },
+        { "label": "grille lun → sam, créneaux qui s'allument", "x": 5, "y": 1, "w": 7, "h": 9 },
+        { "label": "Rejoindre (bloc bordeaux)", "x": 0, "y": 6, "w": 3, "h": 1, "accent": true },
+        { "label": "demande posée dans le créneau 19 h", "x": 8, "y": 6, "w": 3, "h": 2, "accent": true }
+      ] }
+    },
+    {
+      "id": "model-pick",
+      "label": "Le cahier Seyès",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "La réglure Seyès des cahiers scolaires francophones : lignes bleues, marge rouge",
+      "thesis": "Le chapitre s'écrit sur la ligne, l'aide arrive dans la marge : la réglure Seyès (lignes Cool Horizon, marge bordeaux) devient le système de la page.",
+      "palette": ["#F7F2E0", "#80AEE8", "#5B0015", "#2A1A1E"],
+      "materials": ["réglure Seyès 8 mm en Cool Horizon", "marge verticale bordeaux", "écriture au stylo bordeaux", "papier ivoire"],
+      "viewport": "Une page de cahier à la réglure Seyès occupe toute la vue. Le titre est écrit sur les grandes lignes, le chapitre « Actualisation et VAN » souligné à la règle. Dans la marge bordeaux, trois annotations apparaissent : « Aïcha, L3 finance, dispo ce soir », « Loïc, Omar Bongo », « Nadège, Douala ». La demande d'aide est une note agrafée en coin.",
+      "risk": "Le papier crème et les lignes d'écolier sont là où la catégorie atterrit dès qu'elle veut faire « école » ; c'est aussi la direction la plus familière de ma liste.",
+      "wireframe": { "cols": 12, "rows": 10, "regions": [
+        { "label": "marge bordeaux : annotations des aidants", "x": 0, "y": 0, "w": 3, "h": 10, "accent": true },
+        { "label": "titre sur les lignes", "x": 3, "y": 1, "w": 9, "h": 3 },
+        { "label": "chapitre souligné + recherche", "x": 3, "y": 4, "w": 7, "h": 2, "accent": true },
+        { "label": "note agrafée : demande d'aide", "x": 8, "y": 6, "w": 4, "h": 3 }
+      ] }
+    },
+    {
+      "id": "challenger-riso",
+      "label": "La couverture risographiée",
+      "verdict": "competitive",
+      "lineage": "Fanzine tiré en deux encres, volontairement hors registre",
+      "thesis": "Deux encres, bordeaux et Cool Horizon, légèrement décalées : là où elles se recouvrent naît une troisième couleur, et c'est la mise en relation.",
+      "palette": ["#F7F2E0", "#5B0015", "#80AEE8", "#3A2A4A"],
+      "materials": ["deux encres en trame de points", "décalage de registre", "papier recyclé"],
+      "viewport": "Le titre en bordeaux, les profils d'étudiants en Cool Horizon, décalés de quelques millimètres ; la recherche aligne les deux couches et la zone de recouvrement dessine la connexion.",
+      "case": "Se fusionne bien : le recouvrement de deux encres dit la mise en relation mieux que tout pictogramme ; perd de peu sur la clarté de la disponibilité.",
+      "risk": "Les trames et le hors-registre fatiguent sur une appli utilisée tous les jours ; réservé au site public sinon.",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-risograph-zine-cover-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/posters-covers-sleeves-risograph-zine-cover.webp"
+    },
+    {
+      "id": "challenger-drum",
+      "label": "La boîte à rythmes",
+      "verdict": "declined",
+      "lineage": "Rangée de seize pas sous une lumière qui tourne",
+      "thesis": "Une ligne de pas que l'on arme, un chenillard qui dit où est « maintenant ».",
+      "palette": ["#1F1F22", "#E8452C", "#F5D64C", "#FFFFFF"],
+      "materials": ["panneau charbon", "touches colorées", "LED"],
+      "viewport": "Une rangée de créneaux à armer, un curseur lumineux qui balaie.",
+      "case": "Les étudiants ne s'identifient pas à un instrument de studio ; la recherche par chapitre n'y trouve pas sa place.",
+      "kept": "La ligne « maintenant » qui balaie la grille.",
+      "risk": "Décor sonore sans lien avec l'entraide.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-drum-machine-step-row-hero.webp"
+    },
+    {
+      "id": "challenger-specimen",
+      "label": "Le spécimen typographique",
+      "verdict": "declined",
+      "lineage": "Spécimen de fonte variable, un glyphe géant",
+      "thesis": "Un seul mot énorme et un curseur qui le transforme.",
+      "palette": ["#FAFAF7", "#111111", "#80AEE8"],
+      "materials": ["papier blanc", "encre noire", "étiquettes mono"],
+      "viewport": "Le nom du chapitre en corps géant, grille de glyphes en dessous.",
+      "case": "Monde de typographes, pas d'étudiants ; la disponibilité et les profils n'y existent pas.",
+      "kept": "La hiérarchie par l'échelle seule, sans étiquette.",
+      "risk": "Exercice de style vide de produit.",
+      "hero": "https://impeccable.style/worlds/cards/variable-font-specimen-hero.webp"
+    },
+    {
+      "id": "challenger-leather",
+      "label": "L'étagère de cuir",
+      "verdict": "declined",
+      "lineage": "Skeuomorphisme cuir, lin et bois",
+      "thesis": "Chaque section est un objet que l'on manipule.",
+      "palette": ["#8B5A2B", "#E9E2D3", "#5A3A1E"],
+      "materials": ["cuir cousu", "lin", "noyer"],
+      "viewport": "Des étagères de cuir et des pages qui se cornent.",
+      "case": "Aucun étudiant gabonais ne se reconnaît dans un studio de cuir ; lourd sur mobile.",
+      "kept": "La grille traitée comme un objet imprimé, jamais une table neutre.",
+      "risk": "Nostalgie et poids.",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-skeuomorph-leather-studio-hero.webp"
+    },
+    {
+      "id": "challenger-chromatophore",
+      "label": "La peau de céphalopode",
+      "verdict": "declined",
+      "lineage": "Chromatophores, motifs qui voyagent sur la peau",
+      "thesis": "La surface change d'état sous nos yeux.",
+      "palette": ["#EFE6D6", "#8B3A2F", "#2FB7A6"],
+      "materials": ["shaders cellulaires", "textures de déplacement"],
+      "viewport": "Une peau vivante qui se couvre de signaux.",
+      "case": "Monde marin sans lien avec l'entraide ; coût GPU incompatible avec les connexions limitées.",
+      "kept": "La recherche change l'état de la grille en place.",
+      "risk": "Effet spectaculaire et illisible.",
+      "hero": "https://impeccable.style/worlds/cards/reefs-bioluminescent-nocturnal-chromatophore-skin-language-hero.webp"
+    },
+    {
+      "id": "challenger-quarry",
+      "label": "La carrière de nuages",
+      "verdict": "declined",
+      "lineage": "Monde impossible : blocs de météo découpés",
+      "thesis": "Des blocs empilés et des vides bleus entre eux.",
+      "palette": ["#FFFFFF", "#7FB2E6", "#6B6F78", "#C0C4CC"],
+      "materials": ["masse de cumulus", "faces découpées", "ligne de scie argent"],
+      "viewport": "Des blocs de nuage empilés, des vides de ciel entre les sections.",
+      "case": "Onirique, sans prise sur la réalité d'un étudiant qui bloque la veille d'un examen.",
+      "kept": "Les sections empilées comme des blocs séparés par de vrais vides.",
+      "risk": "Rendu volumétrique hors budget.",
+      "hero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-cloud-quarry-hero.webp"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code", "toggle": false },
+  "canon": true,
+  "canonCard": {
+    "label": "Le standard de la catégorie",
+    "thesis": "La landing EdTech que tout le monde livre, exécutée impeccablement : hero, trois cartes, captures d'écran, bande de logos.",
+    "palette": ["#FFFFFF", "#5B0015", "#80AEE8", "#111827"],
+    "materials": ["grille propre", "captures d'écran en cadre", "cartes à coins arrondis"],
+    "viewport": "Titre centré, deux boutons, capture de l'application en dessous, trois cartes de bénéfices.",
+    "risk": "Indiscernable de la concurrence, par construction."
+  },
+  "steer": true
+}

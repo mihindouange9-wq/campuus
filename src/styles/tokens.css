@@ -1,0 +1,115 @@
+/* ───────────── CAMPUUS — jetons (monde : l'emploi du temps) ───────────── */
+:root {
+  /* Palette officielle, non négociable */
+  --bordeaux: #5b0015;   /* Night Bordeaux : identité, action, navigation */
+  --horizon: #80aee8;    /* Cool Horizon : disponibilité, progression, liens, information */
+  --ivory: #f7f2e0;      /* Ivory Mist : papier, lecture, respiration */
+
+  /* Nuances dérivées (lisibilité, bordures, états) — toujours tirées des trois couleurs */
+  --ink: #2b171d;           /* texte courant sur ivoire (bordeaux assombri), 13,4:1 */
+  --ink-muted: #6b4f58;     /* texte secondaire sur ivoire, 6,1:1 */
+  --ink-faint: #7a5f69;     /* métadonnées sur ivoire, 4,8:1 */
+  --bordeaux-deep: #3d000e; /* pied de page, en-tête d'application */
+  --bordeaux-soft: #7a1f33; /* survol du bloc bordeaux */
+  --bordeaux-tint: #efe1e1; /* ligne sélectionnée, cours suivi */
+  --bordeaux-mix: #2e0013;  /* bordeaux × horizon : la mise en relation */
+  --horizon-ink: #2f5f96;   /* texte « horizon » sur ivoire, 5,4:1 */
+  --horizon-deep: #5b8fcc;  /* bordure, icônes, 3,2:1 (éléments non textuels) */
+  --horizon-tint: #e2ecf8;  /* surface d'information */
+  --horizon-soft: #b9d2f1;  /* créneau libre atténué */
+  --horizon-on-dark: #a9c8ee; /* liens sur bordeaux, 7,6:1 */
+  --ivory-deep: #ece5cc;    /* champ, zone en retrait */
+  --ivory-soft: #fbf8ee;    /* feuille posée */
+  --paper-muted: #d9c9cd;   /* texte secondaire sur bordeaux, 9,8:1 */
+
+  /* Fonctionnel, discret */
+  --ok: #2e6b47;
+  --ok-tint: #e3eee6;
+  --error: #b3261e;
+  --error-tint: #f6e2e0;
+  --warn: #7a5a00;
+  --warn-tint: #f3ebd3;
+
+  /* Filets de la grille : bordeaux atténué, jamais gris */
+  --rule: rgb(91 0 21 / 0.14);
+  --rule-strong: rgb(91 0 21 / 0.32);
+  --rule-on-dark: rgb(247 242 224 / 0.18);
+  --rule-on-dark-strong: rgb(247 242 224 / 0.4);
+  --grid-cell: 52px;
+
+  /* Rôles par défaut : le papier ivoire */
+  --bg: var(--ivory);
+  --fg: var(--ink);
+  --fg-muted: var(--ink-muted);
+  --line: var(--rule);
+  --line-strong: var(--rule-strong);
+  --field: var(--ivory-soft);
+  --link: var(--horizon-ink);
+  --selection: var(--horizon-soft);
+
+  /* Typographie */
+  --font-display: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+  --font-ui: "Inter Variable", "Inter", "Segoe UI", system-ui, sans-serif;
+  --fs-display: clamp(2.5rem, 1.1rem + 4.4vw, 4.75rem);
+  --fs-h2: clamp(1.875rem, 1.2rem + 2.4vw, 3.25rem);
+  --fs-h3: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --fs-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.6875rem;
+
+  /* Rythme */
+  --gutter: clamp(1rem, 0.5rem + 3vw, 3rem);
+  --max: 1280px;
+  --section: clamp(4.5rem, 2.5rem + 7vw, 8.5rem);
+  --radius: 3px;
+  --radius-pill: 999px;
+  --shadow-sheet: 0 10px 30px -12px rgb(91 0 21 / 0.35), 0 2px 6px -2px rgb(91 0 21 / 0.2);
+
+  /* Mouvement : un créneau s'allume en 300 ms, une feuille se pose en 600 ms, jamais de rebond */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 160ms;
+  --t-mid: 320ms;
+  --t-slow: 600ms;
+
+  color-scheme: light;
+}
+
+/* Le bloc bordeaux : surface sombre (pied de page, en-tête d'app, cours) */
+[data-tone="bordeaux"] {
+  --bg: var(--bordeaux);
+  --fg: var(--ivory);
+  --fg-muted: var(--paper-muted);
+  --line: var(--rule-on-dark);
+  --line-strong: var(--rule-on-dark-strong);
+  --field: var(--bordeaux-soft);
+  --link: var(--horizon-on-dark);
+  --selection: var(--bordeaux-soft);
+  color-scheme: dark;
+}
+
+[data-tone="deep"] {
+  --bg: var(--bordeaux-deep);
+  --fg: var(--ivory);
+  --fg-muted: var(--paper-muted);
+  --line: var(--rule-on-dark);
+  --line-strong: var(--rule-on-dark-strong);
+  --field: var(--bordeaux);
+  --link: var(--horizon-on-dark);
+  color-scheme: dark;
+}
+
+/* La surface d'information (Cool Horizon atténué) */
+[data-tone="horizon"] {
+  --bg: var(--horizon-tint);
+  --fg: var(--ink);
+  --fg-muted: var(--horizon-ink);
+  --line: rgb(47 95 150 / 0.22);
+  --line-strong: rgb(47 95 150 / 0.45);
+  --field: #ffffff;
+}
+
+/* La feuille posée (plus claire que le papier) */
+[data-tone="sheet"] {
+  --bg: var(--ivory-soft);
+}
