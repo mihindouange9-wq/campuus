@@ -76,7 +76,7 @@
 @media (max-width: 640px) { .student-row { grid-template-columns: auto 1fr; } .student-row__right { grid-column: 2; justify-items: start; } }
 
 /* Créneaux disponibles (accueil) : des tuiles de la grille, pas des cartes ; la disponibilité fait la différence */
-.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 2px; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); padding: 2px 0; }
+.tiles { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); padding: 2px 0; }
 .tile { display: grid; gap: 0.2rem; padding: 0.6rem 0.7rem; min-height: 88px; text-decoration: none; color: var(--ink); border-radius: 2px; transition: filter var(--t-fast); }
 .tile:hover { filter: brightness(0.96); }
 .tile--now { background: var(--horizon); }
@@ -87,6 +87,8 @@
 .tile__who small { color: var(--horizon-ink); font-size: 0.75rem; }
 .tile__chapter { font-size: 0.8125rem; line-height: 1.3; }
 .tile__when { font-size: 0.6875rem; font-weight: 650; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin-top: auto; }
+.tile:nth-child(n + 6) { display: none; }
+@media (max-width: 1100px) { .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } .tile:nth-child(n + 6) { display: grid; } }
 @media (max-width: 640px) { .tiles { grid-template-columns: 1fr 1fr; } }
 
 /* Filtres */

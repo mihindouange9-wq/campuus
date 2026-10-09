@@ -117,6 +117,7 @@ input[type="checkbox"], input[type="radio"] { width: 18px; height: 18px; margin:
 /* L'objet imprimé : en-tête de semaine, marge perforée */
 .tt-wrap { display: grid; gap: 0; }
 .tt__week { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0.6rem 0.45rem 44px; font-size: var(--fs-label); font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bordeaux); border-bottom: 1px solid var(--bordeaux); }
+.tt__week > span { white-space: nowrap; }
 .tt__week-right { color: var(--fg-muted); font-variant-numeric: tabular-nums; }
 .tt--printed .tt__corner, .tt--printed .tt__hour { background-image: radial-gradient(circle at 7px 50%, var(--ivory-deep) 2.5px, var(--rule-strong) 3px, transparent 3.5px); background-size: 14px 22px; background-repeat: repeat-y; background-position: 0 0; border-right: 1px solid var(--line); }
 .tt--printed .tt__hour { padding-left: 14px; }
@@ -138,7 +139,8 @@ input[type="checkbox"], input[type="radio"] { width: 18px; height: 18px; margin:
   .tt:not(.tt--full) [data-day="3"] { grid-column: 2 !important; }
   .tt:not(.tt--full) .tt__sheet { grid-column: 2 / span 1 !important; }
   .tt:not(.tt--full) .tt__day[data-day="3"] abbr::after { content: "di"; }
-  .tt__week, .tt-wrap--printed .tt__week { padding-left: 40px; }
+  .tt__week, .tt-wrap--printed .tt__week { padding-left: 40px; font-size: 0.625rem; letter-spacing: 0.08em; }
+  .tt__week-right { display: none; }
   .tt--printed:not(.tt--full) { grid-template-columns: 50px minmax(0, 1fr); }
   .tt--printed.tt--full { grid-template-columns: 44px repeat(6, minmax(0, 1fr)); }
   .tt--full { --cell: 34px; grid-template-columns: 34px repeat(6, minmax(0, 1fr)); }
