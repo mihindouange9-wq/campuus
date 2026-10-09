@@ -7,8 +7,8 @@
 
   /* Nuances dérivées (lisibilité, bordures, états) — toujours tirées des trois couleurs */
   --ink: #2b171d;           /* texte courant sur ivoire (bordeaux assombri), 13,4:1 */
-  --ink-muted: #6b4f58;     /* texte secondaire sur ivoire, 6,1:1 */
-  --ink-faint: #7a5f69;     /* métadonnées sur ivoire, 4,8:1 */
+  --ink-muted: #52383f;     /* texte secondaire sur ivoire, 7,4:1 (≥ 4,5:1 sur les zones les plus colorées de la nuance) */
+  --ink-faint: #5f4650;     /* métadonnées sur ivoire, 5,8:1 */
   --bordeaux-deep: #3d000e; /* pied de page, en-tête d'application */
   --bordeaux-soft: #7a1f33; /* survol du bloc bordeaux */
   --bordeaux-tint: #efe1e1; /* ligne sélectionnée, cours suivi */

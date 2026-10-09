@@ -15,10 +15,10 @@ function splitWords(el: HTMLElement) {
   const walk = (node: Node): Node[] => {
     if (node.nodeType === Node.TEXT_NODE) {
       const frag: Node[] = [];
-      const parts = (node.textContent ?? "").split(/(\s+)/);
+      const parts = (node.textContent ?? "").split(/([ \t\n]+)/); // les espaces insécables restent collées à leur mot
       for (const p of parts) {
         if (!p) continue;
-        if (/^\s+$/.test(p)) { frag.push(document.createTextNode(" ")); continue; }
+        if (/^[ \t\n]+$/.test(p)) { frag.push(document.createTextNode(" ")); continue; }
         const w = document.createElement("span"); w.className = "w";
         const inner = document.createElement("span"); inner.textContent = p;
         w.appendChild(inner); frag.push(w);
