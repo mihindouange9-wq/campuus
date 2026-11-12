@@ -127,7 +127,7 @@ export function Component() {
                 ))}
               </div>
               {conv?.blocked ? (
-                <div className="thread__blocked"><span>Tu as bloqué {other.pseudo}.</span><Button size="sm" variant="secondary" onClick={() => block(false)}>Débloquer</Button></div>
+                <div className="thread__blocked"><span>Tu as bloqué {other.pseudo}{other.pseudo.endsWith(".") ? "" : "."}</span><Button size="sm" variant="secondary" onClick={() => block(false)}>Débloquer</Button></div>
               ) : (
                 <form className="composer" onSubmit={send}>
                   <label className="btn btn--ghost btn--sm" htmlFor="msg-file" aria-label="Joindre un fichier"><Paperclip size={18} /><input id="msg-file" type="file" style={{ position: "absolute", width: 1, height: 1, opacity: 0 }} onChange={(e) => { const f = e.target.files?.[0]; if (f) setAttachment(`${f.name} · ${Math.max(1, Math.round(f.size / 1024))} ko`); }} /></label>

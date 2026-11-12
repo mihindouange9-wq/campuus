@@ -51,7 +51,7 @@ export function Component() {
     try {
       const r = await api().sendHelpRequest({ toId: to!.id, subjectId, chapterId, kind, message: message.trim(), attachment, slot });
       setSentId(r.id);
-      toast(`Demande envoyée à ${to!.pseudo}.`, "/app/demandes");
+      toast(`Demande envoyée à ${to!.pseudo}${to!.pseudo.endsWith(".") ? "" : "."}`, "/app/demandes");
     } catch {
       setErrors({ form: "L'envoi a échoué. Réessaie." });
     } finally {
@@ -134,7 +134,7 @@ function Sent({ request, to }: { request: HelpRequest; to: Student }) {
     <div className="screen" style={{ maxWidth: 640 }}>
       <div className="screen__head">
         <div>
-          <h1>Demande envoyée à {to.pseudo}.</h1>
+          <h1>Demande envoyée à {to.pseudo}{to.pseudo.endsWith(".") ? "" : "."}</h1>
           <p>{chapter(request.chapterId).name} · {subject(request.subjectId).name}{request.slot ? ` · ${DAYS_LONG[request.slot.day]} ${request.slot.hour} h` : ""}</p>
         </div>
       </div>

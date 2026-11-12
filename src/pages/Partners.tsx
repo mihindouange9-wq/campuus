@@ -44,6 +44,9 @@ export function Component() {
       <main id="contenu" className="landing">
         <section className="page">
           <div className="wrap">
+            <figure className="page__banner">
+              <img src={`/photos/${partners.photo.src}-${partners.photo.w}.webp`} srcSet={`/photos/${partners.photo.src}-${partners.photo.w / 2}.webp ${partners.photo.w / 2}w, /photos/${partners.photo.src}-${partners.photo.w}.webp ${partners.photo.w}w`} sizes="(max-width: 1280px) 100vw, 1280px" alt={partners.photo.alt} width={partners.photo.w} height={Math.round(partners.photo.w / partners.photo.ratio)} decoding="async" />
+            </figure>
             <div className="page__head">
               <h1 style={{ fontSize: "var(--fs-h2)" }}>{partners.title}</h1>
               <p className="lead">{partners.lead}</p>

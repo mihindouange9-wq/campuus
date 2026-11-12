@@ -15,6 +15,10 @@ export function Problem() {
               </li>
             ))}
           </ul>
+          <figure className="photo photo--problem" data-reveal>
+            <img src={`/photos/${problem.chat.photo.src}-${problem.chat.photo.w}.webp`} srcSet={`/photos/${problem.chat.photo.src}-${problem.chat.photo.w / 2}.webp ${problem.chat.photo.w / 2}w, /photos/${problem.chat.photo.src}-${problem.chat.photo.w}.webp ${problem.chat.photo.w}w`} sizes="(max-width: 860px) 90vw, 40vw" alt={problem.chat.photo.alt} width={problem.chat.photo.w} height={Math.round(problem.chat.photo.w / problem.chat.photo.ratio)} loading="lazy" decoding="async" />
+            <figcaption>{problem.chat.photo.caption}</figcaption>
+          </figure>
         </div>
         <figure className="chat" data-reveal aria-label="Une conversation de groupe où la question reste sans réponse">
           <figcaption className="chat__head">

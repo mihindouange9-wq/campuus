@@ -23,9 +23,22 @@ export const hero = {
   legend: { course: "Tes cours", free: "Étudiants disponibles pour ce chapitre", sheet: "Ta demande d'aide" },
 };
 
+export const campus = {
+  title: "Des campus, des visages, des soirées de révision.",
+  lead: "CAMPUUS naît dans des universités réelles, avec des étudiants réels. Ces photographies viennent de campus d’Afrique francophone et anglophone\u00a0; elles illustrent la vie étudiante, pas des partenariats.",
+  photos: [
+    { src: "diplomes", w: 1800, ratio: 4 / 3, city: "Ouagadougou", caption: "Remise des diplômes à l’Institut 2iE", alt: "Deux jeunes diplômés souriants, en toge bleue, tiennent leur diplôme devant l’Institut 2iE à Ouagadougou" },
+    { src: "amphi", w: 1800, ratio: 4 / 3, city: "Accra", caption: "Un amphithéâtre plein, ordinateurs ouverts", alt: "Un amphithéâtre rempli d’étudiants attentifs, ordinateurs portables ouverts" },
+    { src: "sous-les-arbres", w: 1400, ratio: 4 / 3, city: "Yaoundé", caption: "Réviser sous les arbres de l’université de Yaoundé I", alt: "Des étudiants assis sous de grands arbres sur le campus de l’université de Yaoundé I" },
+    { src: "fablab", w: 1400, ratio: 11 / 10, city: "Cotonou", caption: "Le fablab BloLab, premier fablab du Bénin", alt: "Des étudiants travaillent sur des ordinateurs dans le fablab BloLab à Cotonou" },
+    { src: "promotion", w: 1400, ratio: 3 / 2, city: "Ouagadougou", caption: "Une promotion de l’Institut 2iE", alt: "Une promotion d’étudiants en toge bleue et écharpe jaune, de profil, pendant une cérémonie" },
+    { src: "basket", w: 1400, ratio: 4 / 3, city: "Cotonou", caption: "Journée de l’étudiant agronome, match de basket", alt: "Des étudiants jouent au basket pendant la journée de l’étudiant agronome" },
+  ],
+};
+
 export const problem = {
   title: "La veille d'un partiel, la bonne personne existe. Tu ne sais pas qui c'est.",
-  lead: "Un étudiant en finance bloque sur un chapitre de mathématiques financières. Quelqu'un, dans sa promo ou dans une autre université, l'a compris il y a trois mois. Entre les deux : rien.",
+  lead: "Un étudiant en finance bloque sur un chapitre de mathématiques financières. Quelqu'un, dans sa promo ou dans une autre université, l'a compris il y a trois mois. Entre les deux\u00a0: rien.",
   points: [
     { title: "L'information est dispersée", text: "Les réponses utiles sont enfouies dans des conversations de groupe, entre deux messages sans rapport." },
     { title: "Personne ne sait qui est compétent", text: "On connaît les noms, pas les chapitres que chacun maîtrise vraiment." },
@@ -37,13 +50,14 @@ export const problem = {
     messages: [
       { from: "Lionel", text: "Qqn a le planning des TD de demain ?", at: "20:41" },
       { from: "Sandra", text: "Il est dans le groupe de l'année dernière je crois", at: "20:43" },
-      { from: "Kevin", text: "Quelqu'un a compris le chapitre 4 (actualisation, VAN) ? Je suis perdu", at: "20:52", me: true },
+      { from: "Kevin", text: "Quelqu'un a compris le chapitre 4 (actualisation, VAN)\u00a0? Je suis perdu", at: "20:52", me: true },
       { from: "Lionel", text: "Pas moi 😅", at: "20:53" },
       { from: "Bénédicte", text: "Le prof a dit que le partiel c'est jeudi ou vendredi ?", at: "21:10" },
       { from: "Sandra", text: "jeudi", at: "21:11" },
       { from: "Franck", text: "Qui vient au match demain ?", at: "21:30" },
     ],
     note: "Sans réponse",
+    photo: { src: "laptop", w: 1000, ratio: 3 / 4, alt: "Un étudiant assis, ordinateur portable sur les genoux, concentré", caption: "Chercher seul, tard le soir. Photographie\u00a0: Wikimedia Commons." },
     caption: "Conversation fictive, données de démonstration",
   },
 };
@@ -51,7 +65,7 @@ export const problem = {
 export const how = {
   title: "Trois gestes, et quelqu'un t'explique.",
   steps: [
-    { title: "Recherche une matière ou un chapitre", text: "Tape le nom du chapitre qui bloque. Pas la matière entière : le chapitre.", screen: "search" },
+    { title: "Recherche une matière ou un chapitre", text: "Tape le nom du chapitre qui bloque. Pas la matière entière\u00a0: le chapitre.", screen: "search" },
     { title: "Découvre les étudiants pertinents et disponibles", text: "Dans ton établissement ou ailleurs, triés par pertinence et par disponibilité réelle.", screen: "results" },
     { title: "Demande de l'aide et commence à échanger", text: "Une demande claire, un créneau, une conversation. L'autre accepte, refuse ou propose un autre moment.", screen: "request" },
   ],
@@ -59,12 +73,12 @@ export const how = {
 
 export const match = {
   title: "La mise en relation se lit dans les créneaux.",
-  lead: "CAMPUUS rapproche les étudiants selon la matière, le chapitre, la filière, le niveau, l'établissement, le pays et les disponibilités. Le résultat n'est pas un pourcentage : c'est un créneau où vous êtes libres tous les deux.",
+  lead: "CAMPUUS rapproche les étudiants selon la matière, le chapitre, la filière, le niveau, l'établissement, le pays et les disponibilités. Le résultat n'est pas un pourcentage\u00a0: c'est un créneau où vous êtes libres tous les deux.",
   criteria: ["Matière et chapitre", "Filière et niveau", "Établissement et pays", "Disponibilité", "Langues et affinités"],
   left: { title: "Kevin · Libreville", sub: "INSG · L3 Finance · bloque sur l'actualisation" },
   right: { title: "Nadège · Douala", sub: "Université de Douala · M2 Finance · explique l'actualisation" },
   common: { title: "Créneaux communs", sub: "Jeudi 19 h et samedi 15 h · même fuseau horaire" },
-  note: "Cas transfrontalier Gabon ↔ Cameroun, données de démonstration. CAMPUUS est en phase pilote : le réseau se construit, établissement par établissement.",
+  note: "Cas transfrontalier Gabon ↔ Cameroun, données de démonstration. CAMPUUS est en phase pilote\u00a0: le réseau se construit, établissement par établissement.",
 };
 
 export const features = {
@@ -73,9 +87,9 @@ export const features = {
     { id: "search", title: "Recherche académique", text: "Par mots-clés, filière, matière, chapitre, niveau, pays, établissement et disponibilité. Les résultats se filtrent et se trient sans rechargement." },
     { id: "profiles", title: "Profils étudiants", text: "Pseudonyme ou nom, filière, niveau, chapitres maîtrisés, langues. Chacun choisit ce qu'il affiche." },
     { id: "availability", title: "Statut de disponibilité", text: "Maintenant, ce soir, ce week-end ou indisponible. Et les créneaux libres de la semaine." },
-    { id: "requests", title: "Demandes d'aide", text: "Matière, chapitre, nature du blocage, message, pièce jointe. Puis un état clair : envoyée, en attente, acceptée, refusée, expirée." },
+    { id: "requests", title: "Demandes d'aide", text: "Matière, chapitre, nature du blocage, message, pièce jointe. Puis un état clair\u00a0: envoyée, en attente, acceptée, refusée, expirée." },
     { id: "messages", title: "Messagerie", text: "Une conversation par mise en relation, avec l'historique, les pièces jointes, l'état d'envoi et les actions de signalement." },
-    { id: "groups", title: "Groupes d'étude", text: "Par matière, filière ou objectif de révision : membres, description, dernières activités, un bouton pour rejoindre." },
+    { id: "groups", title: "Groupes d'étude", text: "Par matière, filière ou objectif de révision\u00a0: membres, description, dernières activités, un bouton pour rejoindre." },
     { id: "resources", title: "Partage de ressources", text: "Fiches, exercices corrigés, liens utiles, rattachés à un chapitre et partagés dans un groupe." },
     { id: "discover", title: "Découverte au-delà de ton établissement", text: "Des étudiants d'autres universités, d'autres villes et d'autres pays francophones, dans la même filière ou dans une filière complémentaire." },
   ],
@@ -96,7 +110,7 @@ export const panafrican = {
     { name: "Abidjan", country: "Côte d'Ivoire", offset: -1 },
   ],
   legend: { pilot: "Phase pilote", next: "Ouverture envisagée", band: "Heures de révision partagées (19 h à 22 h, heure de Libreville)" },
-  note: "Aucun réseau de cette taille n'existe encore : cette grille montre l'ambition, pas une communauté active.",
+  note: "Aucun réseau de cette taille n'existe encore\u00a0: cette grille montre l'ambition, pas une communauté active.",
 };
 
 export const trust = {
@@ -105,12 +119,13 @@ export const trust = {
   items: [
     { title: "Profils étudiants", text: "Chacun choisit d'afficher son nom ou un pseudonyme, et s'il montre son établissement.", state: "demo" },
     { title: "Signalement et blocage", text: "Depuis toute conversation, signaler un comportement ou bloquer une personne.", state: "demo" },
-    { title: "Règles de communauté", text: "Une charte courte : respect, entraide, pas de démarchage, pas de triche aux examens.", state: "envisage" },
+    { title: "Règles de communauté", text: "Une charte courte\u00a0: respect, entraide, pas de démarchage, pas de triche aux examens.", state: "envisage" },
     { title: "Contrôle des contenus", text: "Revue des signalements et retrait des contenus inappropriés par une équipe de modération.", state: "envisage" },
     { title: "Vérification du statut étudiant", text: "Rattachement à un établissement par adresse institutionnelle ou justificatif.", state: "envisage" },
   ],
   states: { demo: "Dans la démo", envisage: "Envisagé" },
-  note: "Rien de ce qui est marqué « envisagé » n'est opérationnel aujourd'hui.",
+  note: "Rien de ce qui est marqué «\u00a0envisagé\u00a0» n'est opérationnel aujourd'hui.",
+  photo: { src: "bibliotheque", w: 1200, ratio: 4 / 3, alt: "Un étudiant lit dans une bibliothèque universitaire, une plante verte à côté de lui", caption: "Bibliothèque universitaire, Dakar." },
 };
 
 export const final = {
@@ -121,7 +136,7 @@ export const final = {
 };
 
 export const footer = {
-  about: "CAMPUUS est une plateforme d'entraide académique née au Gabon : trouver l'étudiant qui peut t'expliquer un chapitre précis, dans ton établissement ou dans un autre pays francophone.",
+  about: "CAMPUUS est une plateforme d'entraide académique née au Gabon\u00a0: trouver l'étudiant qui peut t'expliquer un chapitre précis, dans ton établissement ou dans un autre pays francophone.",
   columns: [
     { title: "Produit", links: [{ label: "Comment ça marche", href: "/#fonctionnement" }, { label: "Fonctionnalités", href: "/#fonctionnalites" }, { label: "Confiance et communauté", href: "/#confiance" }, { label: "Voir la démo", href: "/app" }] },
     { title: "CAMPUUS", links: [{ label: "Partenaires et investisseurs", href: "/partenaires" }, { label: "Rejoindre la communauté pilote", href: "/rejoindre" }] },
@@ -131,37 +146,40 @@ export const footer = {
   soon: "Bientôt",
   stage: "Phase de conception · Gabon, 2026",
   credit: "Conçu et réalisé par MÉTHODE AURA",
+  photoCredits: "Crédits photographiques",
+  photoNote: "Photographies issues de Wikimedia Commons, utilisées sous leur licence libre. Elles montrent la vie étudiante\u00a0; aucune ne représente un partenaire de CAMPUUS.",
   partner: {
     label: "En partenariat avec",
     title: "MÉTHODE AURA, studio de marque et de produit.",
-    text: "Identité CAMPUUS, site public et application de démonstration : conception et réalisation. Du concept à l’impact.",
+    text: "Identité CAMPUUS, site public et application de démonstration\u00a0: conception et réalisation. Du concept à l’impact.",
   },
 };
 
 export const partners = {
+  photo: { src: "amphi", w: 1800, ratio: 4 / 3, alt: "Un amphithéâtre rempli d’étudiants, ordinateurs portables ouverts" },
   title: "Un réseau d'entraide académique qui commence au Gabon.",
-  lead: "Cette page s'adresse aux établissements et aux partenaires qui veulent comprendre CAMPUUS avant son lancement : le problème, la solution, le parcours, l'ambition et la façon dont nous comptons avancer.",
-  stage: "CAMPUUS est en phase de conception. Aucun chiffre d'usage, aucun partenariat signé et aucun revenu ne figure ici : il n'y en a pas encore.",
+  lead: "Cette page s'adresse aux établissements et aux partenaires qui veulent comprendre CAMPUUS avant son lancement\u00a0: le problème, la solution, le parcours, l'ambition et la façon dont nous comptons avancer.",
+  stage: "CAMPUUS est en phase de conception. Aucun chiffre d'usage, aucun partenariat signé et aucun revenu ne figure ici\u00a0: il n'y en a pas encore.",
   sections: [
-    { id: "vision", title: "Vision", text: "Chaque étudiant d'Afrique francophone doit pouvoir trouver, en quelques minutes, quelqu'un qui lui explique ce qu'il ne comprend pas. Pas un cours en ligne de plus : une personne, disponible, qui a compris le même chapitre dans la même langue." },
-    { id: "probleme", title: "Le problème adressé", text: "L'entraide existe déjà, mais elle est invisible : enfermée dans des groupes de messagerie, limitée à la promo, dépendante du hasard. Les compétences d'un campus, et de tous les campus francophones, ne sont ni visibles ni accessibles au bon moment." },
+    { id: "vision", title: "Vision", text: "Chaque étudiant d'Afrique francophone doit pouvoir trouver, en quelques minutes, quelqu'un qui lui explique ce qu'il ne comprend pas. Pas un cours en ligne de plus\u00a0: une personne, disponible, qui a compris le même chapitre dans la même langue." },
+    { id: "probleme", title: "Le problème adressé", text: "L'entraide existe déjà, mais elle est invisible\u00a0: enfermée dans des groupes de messagerie, limitée à la promo, dépendante du hasard. Les compétences d'un campus, et de tous les campus francophones, ne sont ni visibles ni accessibles au bon moment." },
     { id: "utilisateurs", title: "Les utilisateurs ciblés", text: "D'abord les étudiants de licence et de master au Gabon, majoritairement sur smartphone. Ensuite leurs établissements, qui gagnent un outil d'entraide entre promotions et entre campus. À terme, les étudiants d'Afrique centrale et francophone." },
-    { id: "parcours", title: "Le parcours principal", text: "Rechercher un chapitre, découvrir les étudiants pertinents et disponibles, envoyer une demande d'aide, échanger. Autour : groupes d'étude, partage de ressources, découverte d'autres établissements." },
-    { id: "positionnement", title: "Positionnement", text: "Ni réseau social généraliste, ni plateforme de cours. L'unité de recherche est le chapitre ; l'unité de réponse est un étudiant disponible. CAMPUUS rend visible ce que les campus savent déjà." },
+    { id: "parcours", title: "Le parcours principal", text: "Rechercher un chapitre, découvrir les étudiants pertinents et disponibles, envoyer une demande d'aide, échanger. Autour\u00a0: groupes d'étude, partage de ressources, découverte d'autres établissements." },
+    { id: "positionnement", title: "Positionnement", text: "Ni réseau social généraliste, ni plateforme de cours. L'unité de recherche est le chapitre\u00a0; l'unité de réponse est un étudiant disponible. CAMPUUS rend visible ce que les campus savent déjà." },
   ],
   expansion: {
     title: "Ambition géographique et lancement progressif",
     steps: [
-      { title: "Maintenant : un pilote au Gabon", text: "Libreville et Franceville, quelques établissements, une communauté restreinte pour apprendre vite.", state: "now" },
-      { title: "Ensuite : l’Afrique centrale", text: "Cameroun, Congo, RD Congo, Tchad : mêmes horaires, mêmes programmes pour l'essentiel, même langue d'enseignement.", state: "next" },
-      { title: "Plus tard : l’Afrique francophone", text: "Sénégal, Côte d'Ivoire, Bénin et au-delà, puis les autres marchés francophones pertinents.", state: "later" },
+      { title: "Maintenant\u00a0: un pilote au Gabon", text: "Libreville et Franceville, quelques établissements, une communauté restreinte pour apprendre vite.", state: "now" },
+      { title: "Ensuite\u00a0: l’Afrique centrale", text: "Cameroun, Congo, RD Congo, Tchad\u00a0: mêmes horaires, mêmes programmes pour l'essentiel, même langue d'enseignement.", state: "next" },
+      { title: "Plus tard\u00a0: l’Afrique francophone", text: "Sénégal, Côte d'Ivoire, Bénin et au-delà, puis les autres marchés francophones pertinents.", state: "later" },
     ],
   },
   monetization: {
     title: "Pistes de monétisation envisagées",
     text: "Aucune n'est décidée. Elles sont présentées pour discussion.",
     items: [
-      { title: "Gratuit pour les étudiants", text: "La recherche, les demandes d'aide et les groupes restent gratuits : c'est la condition du réseau." },
+      { title: "Gratuit pour les étudiants", text: "La recherche, les demandes d'aide et les groupes restent gratuits\u00a0: c'est la condition du réseau." },
       { title: "Offres pour les établissements", text: "Espace de l'établissement, suivi de l'entraide entre promotions, outils pour les responsables pédagogiques." },
       { title: "Partenariats", text: "Organismes de bourses, éditeurs de ressources pédagogiques, opérateurs télécoms pour l'accès à moindre coût." },
       { title: "Services optionnels", text: "Mise en avant d'un profil, sessions encadrées, à étudier seulement si elles servent l'entraide." },
@@ -169,11 +187,11 @@ export const partners = {
   },
   roadmap: {
     title: "Prochaines étapes produit",
-    items: ["Terminer le frontend de démonstration (ce site et l'application)", "Brancher un backend réel : comptes, recherche, messagerie", "Ouvrir un pilote avec deux ou trois établissements au Gabon", "Mesurer ce qui compte : demandes envoyées, demandes acceptées, temps avant la première réponse", "Ajouter la version anglaise de l'interface"],
+    items: ["Terminer le frontend de démonstration (ce site et l'application)", "Brancher un backend réel\u00a0: comptes, recherche, messagerie", "Ouvrir un pilote avec deux ou trois établissements au Gabon", "Mesurer ce qui compte\u00a0: demandes envoyées, demandes acceptées, temps avant la première réponse", "Ajouter la version anglaise de l'interface"],
   },
   form: {
     title: "Parler avec nous",
-    text: "Établissement, investisseur, partenaire potentiel : laissez-nous un message. Dans cette démonstration, le message est enregistré sur votre appareil uniquement.",
+    text: "Établissement, investisseur, partenaire potentiel\u00a0: laissez-nous un message. Dans cette démonstration, le message est enregistré sur votre appareil uniquement.",
     org: "Organisation",
     name: "Votre nom",
     email: "Adresse e-mail",
@@ -186,11 +204,12 @@ export const partners = {
 };
 
 export const join = {
+  photo: { src: "portrait", w: 900, ratio: 2 / 3, alt: "Un jeune homme souriant, lunettes, chemise blanche et gilet" },
   title: "Rejoins la communauté pilote.",
-  lead: "CAMPUUS ouvre d'abord au Gabon avec un petit groupe d'étudiants. Laisse-nous tes informations : tu seras prévenu à l'ouverture. Dans cette démonstration, le formulaire est enregistré sur ton appareil uniquement.",
+  lead: "CAMPUUS ouvre d'abord au Gabon avec un petit groupe d'étudiants. Laisse-nous tes informations\u00a0: tu seras prévenu à l'ouverture. Dans cette démonstration, le formulaire est enregistré sur ton appareil uniquement.",
   fields: { name: "Prénom ou pseudonyme", email: "Adresse e-mail", country: "Pays", institution: "Établissement", field: "Filière", level: "Niveau", role: "Tu veux…" },
   roles: [{ value: "aide", label: "Trouver de l'aide" }, { value: "aider", label: "Aider d'autres étudiants" }, { value: "les-deux", label: "Les deux" }],
   consent: "J'accepte d'être contacté à l'ouverture du pilote.",
   submit: "Rejoindre la liste pilote",
-  success: { title: "Tu es sur la liste.", text: "Merci ! En attendant l'ouverture, tu peux explorer la démonstration avec un profil fictif.", cta: "Ouvrir la démo" },
+  success: { title: "Tu es sur la liste.", text: "Merci\u00a0! En attendant l'ouverture, tu peux explorer la démonstration avec un profil fictif.", cta: "Ouvrir la démo" },
 };

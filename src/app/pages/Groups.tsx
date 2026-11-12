@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Avatar, Button, Empty, Loading, relative } from "../../components/ui";
 import { api } from "../../services/api";
 import { toast } from "../../services/toast";
-import { FIELDS, institution, student, subject } from "../../data/mock";
+import { FIELDS, GROUP_COVERS, institution, student, subject } from "../../data/mock";
 import type { StudyGroup } from "../../data/types";
 
 export function Component() {
@@ -39,7 +39,10 @@ export function Component() {
           {list.map((g) => {
             const joined = g.memberIds.includes("me");
             return (
-              <li key={g.id} className="group">
+              <li key={g.id} className="group group--cover">
+                <Link to={`/app/groupes/${g.id}`} className="group__cover" aria-hidden="true" tabIndex={-1}>
+                  <img src={`/photos/${GROUP_COVERS[g.id]?.src ?? "campus-yaounde"}-${GROUP_COVERS[g.id]?.w ?? 700}.webp`} alt="" loading="lazy" decoding="async" />
+                </Link>
                 <div>
                   <Link to={`/app/groupes/${g.id}`} className="group__title">{g.name}</Link>
                   <div className="group__meta">

@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { Header } from "../sections/Header";
 import { Footer } from "../sections/Footer";
 import { ButtonLink } from "../components/ui";
 import "./landing.css";
 
 export function Component() {
+  useEffect(() => { document.title = "Page introuvable — CAMPUUS"; }, []);
   return (
     <>
       <Header />

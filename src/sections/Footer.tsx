@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Logo } from "../brand/Logo";
 import { footer } from "../content/fr";
+import { PHOTO_CREDITS } from "../content/photos";
 
 export function Footer() {
   return (
@@ -44,6 +45,15 @@ export function Footer() {
         </p>
       </div>
 
+      <details className="wrap site-footer__credits">
+        <summary>{footer.photoCredits}</summary>
+        <p>{footer.photoNote}</p>
+        <ul>
+          {PHOTO_CREDITS.map((c) => (
+            <li key={c.name}><a href={c.page} rel="noopener">{c.title}</a> · {c.author ? `${c.author} · ` : ""}{c.license}</li>
+          ))}
+        </ul>
+      </details>
       <div className="wrap site-footer__bottom">
         <span>© 2026 CAMPUUS</span>
         <span>{footer.credit}</span>

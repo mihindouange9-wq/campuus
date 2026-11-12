@@ -47,10 +47,12 @@ export function Component() {
       <main id="contenu" className="landing">
         <section className="page">
           <div className="wrap">
-            <div className="page__head">
-              <h1 style={{ fontSize: "var(--fs-h2)" }}>{join.title}</h1>
-              <p className="lead">{join.lead}</p>
-            </div>
+            <div className="join__grid">
+              <div>
+                <div className="page__head">
+                  <h1 style={{ fontSize: "var(--fs-h2)" }}>{join.title}</h1>
+                  <p className="lead">{join.lead}</p>
+                </div>
             {state === "done" ? (
               <div className="form__success" role="status">
                 <h2>{join.success.title}</h2>
@@ -111,6 +113,12 @@ export function Component() {
                 <div><Button type="submit" size="lg" loading={state === "sending"} arrow>{join.submit}</Button></div>
               </form>
             )}
+              </div>
+              <figure className="photo photo--join">
+                <img src={`/photos/${join.photo.src}-${join.photo.w}.webp`} srcSet={`/photos/${join.photo.src}-${join.photo.w / 2}.webp ${join.photo.w / 2}w, /photos/${join.photo.src}-${join.photo.w}.webp ${join.photo.w}w`} sizes="(max-width: 860px) 60vw, 30vw" alt={join.photo.alt} width={join.photo.w} height={Math.round(join.photo.w / join.photo.ratio)} loading="lazy" decoding="async" />
+                <figcaption>Photographie : Wikimedia Commons, domaine public.</figcaption>
+              </figure>
+            </div>
           </div>
         </section>
       </main>

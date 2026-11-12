@@ -6,6 +6,7 @@ import { final } from "../content/fr";
 export function Final() {
   return (
     <section className="section final" data-tone="bordeaux" aria-labelledby="final-title">
+      <img className="final__photo" src="/photos/diplomes-1800.webp" srcSet="/photos/diplomes-900.webp 900w, /photos/diplomes-1800.webp 1800w" sizes="100vw" alt="" width={1800} height={1350} loading="lazy" decoding="async" aria-hidden="true" />
       <div className="wrap final__grid">
         <div className="final__board" aria-hidden="true">
           {Array.from({ length: 24 }, (_, i) => <span key={i} className={`final__cell${[5, 9, 14, 16].includes(i) ? " final__cell--free" : ""}${i === 15 ? " final__cell--me" : ""}`} style={{ "--i": i } as React.CSSProperties} />)}

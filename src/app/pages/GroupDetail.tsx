@@ -4,7 +4,7 @@ import { FileText, Link2, StickyNote } from "lucide-react";
 import { Avatar, AvailabilityTag, Button, ButtonLink, Empty, Loading, relative } from "../../components/ui";
 import { api } from "../../services/api";
 import { toast } from "../../services/toast";
-import { RESOURCES, institution, student, subject } from "../../data/mock";
+import { GROUP_COVERS, RESOURCES, institution, student, subject } from "../../data/mock";
 import type { StudyGroup } from "../../data/types";
 
 const ICON = { pdf: FileText, lien: Link2, notes: StickyNote };
@@ -29,6 +29,9 @@ export function Component() {
   return (
     <div className="screen">
       <p><Link to="/app/groupes">← Tous les groupes</Link></p>
+      <div className="group__hero">
+        <img src={`/photos/${GROUP_COVERS[g.id]?.src ?? "campus-yaounde"}-${(GROUP_COVERS[g.id]?.w ?? 700) * 2}.webp`} alt="" width={1400} height={700} decoding="async" />
+      </div>
       <div className="screen__head">
         <div>
           <h1>{g.name}</h1>
