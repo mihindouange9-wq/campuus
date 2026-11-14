@@ -314,6 +314,40 @@ export function Reach3() {
   );
 }
 
+/* ───────── Le fondateur ───────── */
+export function Founder3() {
+  return (
+    <section className="sec3 fd" id="fondateur" aria-labelledby="fd-title">
+      <div className="wrap3 fd__grid">
+        <figure className="fd__photo" data-reveal>
+          <img
+            src="/photos/fondateur-960.webp"
+            srcSet="/photos/fondateur-480.webp 480w, /photos/fondateur-960.webp 960w"
+            sizes="(max-width: 760px) 92vw, 38vw"
+            alt="Portrait de Fabrice Okemvele, fondateur de CAMPUUS"
+            width={960}
+            height={1280}
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <div className="fd__copy">
+          <p className="fd__label" data-reveal>Le fondateur</p>
+          <h2 id="fd-title" data-split>Fabrice <span className="hot">Okemvele</span></h2>
+          <p className="sec3__lead" data-reveal>
+            CAMPUUS est né sur un campus. Fabrice Okemvele l'a fondé pendant ses études : une application pensée par un étudiant, pour les étudiants.
+          </p>
+          <dl className="fd__facts" data-reveal>
+            <div><dt>Rôle</dt><dd>Fondateur de CAMPUUS</dd></div>
+            <div><dt>Études</dt><dd>Master 1</dd></div>
+            <div><dt>École</dt><dd>École de Commerce de Lyon, campus de Libreville</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ───────── Clôture ───────── */
 const PHOTOS = ["diplomes", "amphi", "sous-les-arbres"].map((src) => campus.photos.find((p) => p.src === src)!);
 

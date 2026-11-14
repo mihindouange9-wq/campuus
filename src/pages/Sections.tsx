@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from "react";
-import { Features3, Footer3, Header3, Next3, PageHead3, Problem3, Reach3, Steps3 } from "../sections/v3";
+import { Features3, Footer3, Founder3, Header3, Next3, PageHead3, Problem3, Reach3, Steps3 } from "../sections/v3";
 import { setupInk, setupReveals } from "../lib/motion";
 import { setupScenes } from "../lib/landingMotion";
 import "./site.css";
@@ -52,6 +52,7 @@ export function TrustPage() {
   return (
     <Page title="Confiance" doc="Confiance et communauté" next={{ href: "/partenaires", label: "Partenaires" }}>
       <Reach3 />
+      <Founder3 />
     </Page>
   );
 }

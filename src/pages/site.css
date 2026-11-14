@@ -277,6 +277,23 @@ main.landing { animation: page-in var(--t-state) var(--ease) both; }
 .rc .legend--band { background: transparent; border: 1px dashed var(--graphite); }
 .rc__note { margin: 0; font-size: 0.875rem; color: var(--paper-muted); }
 .rc__note--box { padding: 0.6rem 0.9rem; border: 1px solid var(--cinabre); color: var(--papier); }
+
+/* Le fondateur : portrait à gauche, nom en grand, faits sur filets */
+.fd__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(1.5rem, 5vw, 5rem); align-items: end; }
+.fd__photo { margin: 0; background: var(--nuit); overflow: hidden; }
+.fd__photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+.fd__copy { display: grid; gap: 1.1rem; min-width: 0; }
+.fd__label { margin: 0; font-size: var(--fs-label); font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+.fd h2 { max-width: none; font-size: clamp(2.75rem, 1rem + 6.4vw, 7.5rem); }
+.fd h2 .hot { color: var(--cinabre); }
+.fd__facts { margin: 0.5rem 0 0; border-top: 1px solid var(--line-strong); }
+.fd__facts > div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; align-items: baseline; padding: 0.8rem 0; border-bottom: 1px solid var(--line); }
+.fd__facts dt { font-size: var(--fs-label); font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+.fd__facts dd { margin: 0; font-size: 1.0625rem; line-height: 1.4; }
+@media (max-width: 760px) {
+  .fd__grid { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .fd__photo { max-width: 26rem; }
+}
 .trust__list { border-top: 1px solid var(--line-strong); }
 .trust__item { border-bottom: 1px solid var(--line); }
 .trust__item summary { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 0.75rem; min-height: 56px; padding-block: 0.35rem; cursor: pointer; list-style: none; }
