@@ -11,6 +11,16 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 export const MOTION = { touch: 0.16, state: 0.4, enter: 0.85, stagger: 0.05, ease: "expo.out", exit: "power2.in" } as const;
 gsap.defaults({ ease: MOTION.ease, duration: MOTION.enter });
 
+/*
+ * Ouverture et transitions de page : tant qu'un volet couvre l'écran, les révélations de titres attendent ;
+ * elles partent au moment où le volet commence à se retirer, pour enchaîner sans temps mort.
+ */
+let curtain = false;
+const waiters: (() => void)[] = [];
+export function introStart() { curtain = true; }
+export function introDone() { if (!curtain) return; curtain = false; waiters.splice(0).forEach((f) => f()); }
+export function whenIntroDone(cb: () => void) { if (curtain) waiters.push(cb); else cb(); }
+
 export const prefersReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export { splitWords };
@@ -74,7 +84,7 @@ export function setupReveals(scope: HTMLElement) {
   titles.forEach((t) => { const words = splitWords(t); gsap.set(words, { yPercent: 110 }); });
   once("[data-split]", "0px 0px -10% 0px", (el) => {
     const words = el.querySelectorAll(".w > span");
-    gsap.to(words, { yPercent: 0, duration: MOTION.enter, stagger: 0.04, ease: MOTION.ease });
+    whenIntroDone(() => gsap.to(words, { yPercent: 0, duration: MOTION.enter, stagger: 0.04, ease: MOTION.ease }));
   });
 
   // Blocs

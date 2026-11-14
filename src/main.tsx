@@ -9,14 +9,25 @@ import "./styles/base.css";
 import "./styles/components.css";
 import "./styles/motion.css";
 import Landing from "./pages/Landing";
+import SiteLayout from "./pages/SiteLayout";
 
 const Shell = lazy(() => import("./app/Shell"));
 const loading = <div className="app-loading" aria-live="polite">Chargement de l'espace CAMPUUS…</div>;
 
 const router = createBrowserRouter([
-  { path: "/", element: <Landing /> },
-  { path: "/partenaires", lazy: () => import("./pages/Partners") },
-  { path: "/rejoindre", lazy: () => import("./pages/Join") },
+  {
+    // Pages publiques : ouverture animée au chargement, volet de transition entre les pages
+    element: <SiteLayout />,
+    children: [
+      { path: "/", element: <Landing /> },
+      { path: "/comment-ca-marche", lazy: () => import("./pages/Sections").then((m) => ({ Component: m.HowPage })) },
+      { path: "/fonctionnalites", lazy: () => import("./pages/Sections").then((m) => ({ Component: m.FeaturesPage })) },
+      { path: "/confiance", lazy: () => import("./pages/Sections").then((m) => ({ Component: m.TrustPage })) },
+      { path: "/partenaires", lazy: () => import("./pages/Partners") },
+      { path: "/rejoindre", lazy: () => import("./pages/Join") },
+      { path: "*", lazy: () => import("./pages/NotFound") },
+    ],
+  },
   {
     path: "/app",
     element: <Suspense fallback={loading}><Shell /></Suspense>,
@@ -34,7 +45,6 @@ const router = createBrowserRouter([
       { path: "profil", lazy: () => import("./app/pages/Profile") },
     ],
   },
-  { path: "*", lazy: () => import("./pages/NotFound") },
 ]);
 
 createRoot(document.getElementById("root")!).render(

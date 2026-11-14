@@ -54,7 +54,7 @@ export function Component() {
               <div>
                 <Link to="/" className="page__back"><ArrowLeft size={16} aria-hidden="true" /> Retour à l'accueil</Link>
                 <div className="page__head">
-                  <h1 style={{ fontSize: "var(--fs-h2)" }} data-split>{join.title}</h1>
+                  <h1 tabIndex={-1} style={{ fontSize: "var(--fs-h2)" }} data-split>{join.title}</h1>
                   <p className="lead" data-reveal>{join.lead}</p>
                 </div>
             {state === "done" ? (

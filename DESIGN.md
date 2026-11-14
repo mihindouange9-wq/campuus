@@ -580,3 +580,10 @@ Règles : le bouton principal est Cinabre à texte Nuit (sur un panneau Brume, N
 
 ### Illustrations
 L'emploi du temps reste le langage : cours en blocs Nuit sur feuille Papier, étudiants disponibles en Cinabre, recouvrement en multiplication pour le créneau commun. Les fonds vivants (la nuance) et les sections bordeaux n'existent plus ; les fichiers correspondants restent dans le dépôt sans être montés.
+
+## Ouverture animée et pages (v5 du document, 14 novembre 2026)
+
+- **Pages** : l'accueil `/` est l'écran-menu (phrase d'ouverture, clôture, pied de page). Chaque lien mène à une page : `/comment-ca-marche` (constats + étapes 01–04), `/fonctionnalites`, `/confiance`, `/partenaires`, `/rejoindre`. Chaque page de section a un titre géant (`PageHead3`), son contenu, puis un bloc de fin (`Next3` : « Suivant : … » et « Rejoindre CAMPUUS »). Les anciennes ancres de l'accueil redirigent vers ces pages. Découpage par route (import dynamique), sitemap à six adresses, réécriture vers `index.html` dans `render.yaml`.
+- **Ouverture** (`src/pages/SiteLayout.tsx`) : à chaque chargement complet d'une page publique (jamais dans l'application ni lors d'une navigation interne) ; fond Nuit, les deux U du symbole descendent derrière leur masque et se rejoignent, le mot CAMPUUS monte lettre à lettre, un volet Cinabre balaie l'écran puis se retire en découvrant la page, dont le titre enchaîne sa révélation. Environ 2,05 s ; un clic, un toucher ou une touche la passe ; absente en mouvement réduit ; défilement bloqué pendant l'animation seulement.
+- **Transition de page** : un volet Cinabre monte et recouvre l'écran (300 ms), la page change dessous, le volet se retire par le haut (360 ms) ; retour en haut, focus sur le h1, titre du document mis à jour ; changement immédiat en mouvement réduit.
+- Les révélations de titres attendent la fin du volet (`introStart` / `introDone` / `whenIntroDone` dans `src/lib/motion.ts`).

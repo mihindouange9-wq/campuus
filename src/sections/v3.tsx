@@ -6,7 +6,7 @@ import { Mark } from "../brand/Logo";
 import { ButtonLink } from "../components/ui";
 import { campus, features, final, footer, hero, how, match, nav, panafrican, partners, problem, trust } from "../content/fr";
 import { PHOTO_CREDITS } from "../content/photos";
-import { gsap, prefersReducedMotion, useGSAP } from "../lib/motion";
+import { gsap, prefersReducedMotion, useGSAP, whenIntroDone } from "../lib/motion";
 import { RequestScreen, ResultsScreen, SearchScreen } from "./How";
 import { VIGNETTES } from "./Features";
 import { MatchBoard } from "./Match";
@@ -122,7 +122,8 @@ export function Hero3() {
     const rest = gsap.utils.toArray<HTMLElement>(".hero3__link, .hero3__foot > *, .hero3__word", scope);
     gsap.set(frags, { yPercent: 105 });
     gsap.set(rest, { autoAlpha: 0, y: 12 });
-    const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+    const tl = gsap.timeline({ paused: true, defaults: { ease: "expo.out" } });
+    whenIntroDone(() => tl.play());
     tl.to(frags, { yPercent: 0, duration: 0.95, stagger: 0.06 }, 0)
       .to(rest, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.05 }, 0.45)
       .fromTo(".hero3__ghost", { autoAlpha: 0, scale: 1.08 }, { autoAlpha: 1, scale: 1, duration: 1.4 }, 0.1);
@@ -140,7 +141,7 @@ export function Hero3() {
           </div>
         ))}
       </div>
-      <h1 id="hero-title" className="visually-hidden">{hero.title.join(" ")}</h1>
+      <h1 id="hero-title" className="visually-hidden" tabIndex={-1}>{hero.title.join(" ")}</h1>
       <nav className="hero3__sentence" aria-label="Aller à une section">
         {ROWS.map((r, i) => {
           const l = nav.links[i];
@@ -161,6 +162,7 @@ export function Hero3() {
           <ButtonLink to="/rejoindre" size="lg" arrow>{hero.cta}</ButtonLink>
           <ButtonLink to="/app" size="lg" variant="secondary">{hero.demo}</ButtonLink>
         </div>
+        <Link to="/comment-ca-marche" className="hero3__more"><span>{hero.secondary}</span><ArrowRight size={16} aria-hidden="true" /></Link>
       </div>
       <span className="hero3__word" aria-hidden="true">CAMPUUS</span>
     </section>
@@ -391,5 +393,33 @@ export function Footer3() {
         <span className="foot3__word" aria-hidden="true">CAMPUUS</span>
       </div>
     </footer>
+  );
+}
+
+/* ───────── Titre de page et bloc de fin (pages de section) ───────── */
+export function PageHead3({ title }: { title: string }) {
+  return (
+    <section className="phead" data-tone="nuit">
+      <Mark size={600} tone="mono" className="phead__ghost" />
+      <div className="wrap3">
+        <Link to="/" className="page__back"><ArrowRight size={16} aria-hidden="true" className="phead__back" /> Retour à l'accueil</Link>
+        <h1 className="phead__title" tabIndex={-1} data-split>{title}</h1>
+      </div>
+    </section>
+  );
+}
+
+export function Next3({ href, label }: { href: string; label: string }) {
+  return (
+    <section className="next3" data-tone="nuit" aria-label="Page suivante">
+      <div className="wrap3 next3__row">
+        <Link to={href} className="next3__link">
+          <small>Suivant</small>
+          <span>{label}</span>
+          <ArrowRight size={44} aria-hidden="true" />
+        </Link>
+        <ButtonLink to="/rejoindre" size="lg" arrow>{nav.join}</ButtonLink>
+      </div>
+    </section>
   );
 }

@@ -1,5 +1,4 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { Header3, Hero3 } from "../sections/v3";
 import { ButtonLink } from "../components/ui";
 import { nav } from "../content/fr";
@@ -33,10 +32,9 @@ function ActionBar() {
 }
 
 export default function Landing() {
-  const { hash } = useLocation();
   // Le premier affichage ne contient que l'en-tête et le hero ; la suite est montée juste après (tout de suite si
   // l'adresse vise une ancre ou si le visiteur défile déjà), pour que le titre n'attende pas le reste de la page.
-  const [rest, setRest] = useState(() => !!hash);
+  const [rest, setRest] = useState(false);
   useEffect(() => {
     if (rest) return;
     const show = () => setRest(true);
@@ -44,7 +42,6 @@ export default function Landing() {
     window.addEventListener("scroll", show, { once: true, passive: true });
     return () => { clearTimeout(t); window.removeEventListener("scroll", show); };
   }, [rest]);
-  useEffect(() => { if (hash) setRest(true); }, [hash]);
   useEffect(() => setupInk(document.body), []);
   useEffect(() => { document.title = "CAMPUUS — Bloqué sur un cours ? Trouve quelqu'un qui peut t'aider."; }, []);
 

@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { Header3 as Header, Footer3 as Footer } from "../sections/v3";
+import { Header3 as Header, Footer3 as Footer, Next3 } from "../sections/v3";
 import { Button, ButtonLink, Field, Input, Select, Textarea } from "../components/ui";
 import { partners } from "../content/fr";
 import { api } from "../services/api";
@@ -49,7 +49,7 @@ export function Component() {
           <div className="wrap">
             <Link to="/" className="page__back"><ArrowLeft size={16} aria-hidden="true" /> Retour à l’accueil</Link>
             <div className="page__head">
-              <h1 style={{ fontSize: "var(--fs-h2)" }} data-split>{partners.title}</h1>
+              <h1 tabIndex={-1} style={{ fontSize: "var(--fs-h2)" }} data-split>{partners.title}</h1>
               <p className="lead" data-reveal>{partners.lead}</p>
               <p className="page__stage" data-reveal>{partners.stage}</p>
               <div className="page__actions" data-reveal><ButtonLink to="/partenaires#contact" arrow onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" }); }}>{partners.form.title}</ButtonLink></div>
@@ -130,6 +130,7 @@ export function Component() {
             </div>
           </div>
         </section>
+        <Next3 href="/rejoindre" label="Rejoindre" />
       </main>
       <Footer />
     </>

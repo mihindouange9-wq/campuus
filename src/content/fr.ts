@@ -2,9 +2,9 @@
 
 export const nav = {
   links: [
-    { href: "/#fonctionnement", label: "Comment ça marche" },
-    { href: "/#fonctionnalites", label: "Fonctionnalités" },
-    { href: "/#confiance", label: "Confiance" },
+    { href: "/comment-ca-marche", label: "Comment ça marche" },
+    { href: "/fonctionnalites", label: "Fonctionnalités" },
+    { href: "/confiance", label: "Confiance" },
     { href: "/partenaires", label: "Partenaires" },
   ],
   demo: "Voir la démo",
@@ -138,7 +138,7 @@ export const final = {
 export const footer = {
   about: "CAMPUUS est une plateforme d'entraide académique née au Gabon\u00a0: trouver l'étudiant qui peut t'expliquer un chapitre précis, dans ton établissement ou dans un autre pays francophone.",
   columns: [
-    { title: "Produit", links: [{ label: "Comment ça marche", href: "/#fonctionnement" }, { label: "Fonctionnalités", href: "/#fonctionnalites" }, { label: "Confiance et communauté", href: "/#confiance" }, { label: "Voir la démo", href: "/app" }] },
+    { title: "Produit", links: [{ label: "Comment ça marche", href: "/comment-ca-marche" }, { label: "Fonctionnalités", href: "/fonctionnalites" }, { label: "Confiance et communauté", href: "/confiance" }, { label: "Voir la démo", href: "/app" }] },
     { title: "CAMPUUS", links: [{ label: "Partenaires et investisseurs", href: "/partenaires" }, { label: "Rejoindre la communauté pilote", href: "/rejoindre" }] },
     { title: "Légal", links: [{ label: "Confidentialité", soon: true }, { label: "Conditions d'utilisation", soon: true }, { label: "Contact", soon: true }] },
     { title: "Réseaux", links: [{ label: "Instagram", soon: true }, { label: "LinkedIn", soon: true }, { label: "WhatsApp", soon: true }] },
