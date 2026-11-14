@@ -51,6 +51,7 @@
 .block__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
 .block__head h2 { font-size: 1.0625rem; letter-spacing: -0.015em; }
 .block__head a { font-size: var(--fs-small); font-weight: 600; padding-block: 0.5rem; margin-block: -0.5rem; }
+.block__head a { min-width: 44px; justify-content: flex-end; text-align: right; }
 .two { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: start; }
 .two > * { min-width: 0; }
 @media (max-width: 1000px) { .two { grid-template-columns: 1fr; } }

@@ -69,7 +69,7 @@
   --font-ui: "Inter Variable", "Inter", "Segoe UI", system-ui, sans-serif;
   --font-mark: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
   --font-display: var(--font-ui);   /* petits éléments d'interface qui portaient l'ancienne police de titres */
-  --fs-giant: clamp(2.9rem, min(12.4vw, 18.6vh), 12rem);
+  --fs-giant: clamp(2.9rem, min(11.6vw, 18.6vh), 20rem);
   --fs-display: clamp(2.5rem, 1rem + 6vw, 7rem);
   --fs-h2: clamp(2.25rem, 1rem + 4.6vw, 5.5rem);
   --fs-h3: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);

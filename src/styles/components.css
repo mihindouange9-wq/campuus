@@ -98,13 +98,13 @@ input[type="checkbox"], input[type="radio"] { width: 18px; height: 18px; margin:
 .tt__day { grid-row: 1; display: flex; align-items: flex-end; padding: 0 0 0.35rem 0.45rem; font-size: var(--fs-label); font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); border-bottom: 1px solid var(--line-strong); border-left: 1px solid var(--line); }
 .tt__day abbr { text-decoration: none; }
 .tt__hour { grid-column: 1; display: flex; align-items: flex-start; justify-content: flex-end; padding: 0.15rem 0.5rem 0 0; font-size: var(--fs-label); color: var(--ink-faint); border-top: 1px solid var(--line); }
-.tt--compact .tt__hour { font-size: 0.625rem; padding-right: 0.35rem; }
+.tt--compact .tt__hour { font-size: 0.6875rem; padding-right: 0.35rem; }
 .tt__cell { border-left: 1px solid var(--line); border-top: 1px solid var(--line); min-width: 0; }
 .tt--editable .tt__cell { cursor: pointer; transition: background-color var(--t-fast) var(--ease); }
 .tt--editable .tt__cell:hover { background: var(--horizon-tint); }
 .tt__cell--selected { background: var(--horizon) !important; }
 .slot { position: relative; z-index: 1; margin: 2px; padding: 0.3rem 0.45rem; border-radius: 2px; font-size: 0.75rem; line-height: 1.2; min-width: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 0.1rem; }
-.tt--compact .slot { padding: 0.15rem 0.3rem; font-size: 0.625rem; }
+.tt--compact .slot { padding: 0.15rem 0.3rem; font-size: 0.6875rem; }
 .slot__label { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .slot__sub { font-size: 0.6875rem; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .slot--course { background: var(--bordeaux); color: var(--ivory); }
@@ -129,7 +129,7 @@ input[type="checkbox"], input[type="radio"] { width: 18px; height: 18px; margin:
 .tt__now { position: relative; z-index: 3; pointer-events: none; }
 .tt__now::before { content: ""; position: absolute; left: 0; right: 0; top: calc(var(--now) * 100%); border-top: 2px solid var(--bordeaux); }
 .tt__now::after { content: ""; position: absolute; left: -4px; top: calc(var(--now) * 100% - 3px); width: 8px; height: 8px; border-radius: 50%; background: var(--bordeaux); }
-.tt__now .num { position: absolute; right: 4px; top: calc(var(--now) * 100% - 1.3em); font-size: 0.625rem; font-weight: 650; color: var(--bordeaux); letter-spacing: 0.05em; }
+.tt__now .num { position: absolute; right: 4px; top: calc(var(--now) * 100% - 1.3em); font-size: 0.6875rem; font-weight: 650; color: var(--bordeaux); letter-spacing: 0.05em; }
 .tt__caption { font-size: var(--fs-small); color: var(--fg-muted); padding-top: 0.6rem; }
 
 /* Sur un écran étroit : un seul jour, sauf grille complète demandée */
@@ -139,11 +139,11 @@ input[type="checkbox"], input[type="radio"] { width: 18px; height: 18px; margin:
   .tt:not(.tt--full) [data-day="3"] { grid-column: 2 !important; }
   .tt:not(.tt--full) .tt__sheet { grid-column: 2 / span 1 !important; }
   .tt:not(.tt--full) .tt__day[data-day="3"] abbr::after { content: "di"; }
-  .tt__week, .tt-wrap--printed .tt__week { padding-left: 40px; font-size: 0.625rem; letter-spacing: 0.08em; }
+  .tt__week, .tt-wrap--printed .tt__week { padding-left: 40px; font-size: 0.6875rem; letter-spacing: 0.08em; }
   .tt__week-right { display: none; }
   .tt--printed:not(.tt--full) { grid-template-columns: 50px minmax(0, 1fr); }
   .tt--printed.tt--full { grid-template-columns: 44px repeat(6, minmax(0, 1fr)); }
   .tt--full { --cell: 34px; grid-template-columns: 34px repeat(6, minmax(0, 1fr)); }
-  .tt--full .slot { padding: 0.1rem 0.2rem; font-size: 0.5625rem; }
+  .tt--full .slot { padding: 0.1rem 0.2rem; font-size: 0.6875rem; }
   .tt--full .slot__sub { display: none; }
 }
