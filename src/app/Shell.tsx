@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { setupInk } from "../lib/motion";
+import { pauseNuance, setupInk } from "../lib/motion";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { Bell, Home, Search, Inbox, MessageSquare, Users, UserRound, RotateCcw, ExternalLink } from "lucide-react";
 import { Mark } from "../brand/Logo";
@@ -7,6 +7,7 @@ import { Avatar } from "../components/ui";
 import { useDemo, resetDemo } from "../services/store";
 import { me } from "../services/demo";
 import { useToasts } from "../services/toast";
+import "../services/boot";
 import "./app.css";
 
 const NAV = [
@@ -30,6 +31,7 @@ export default function Shell() {
   const [confirmReset, setConfirmReset] = useState(false);
   useEffect(() => { window.scrollTo(0, 0); }, [location.pathname]);
   useEffect(() => setupInk(document.body), []);
+  useEffect(() => pauseNuance(), []);
 
   const badge = (to: string) => (to === "/app/notifications" ? unread : to === "/app/messages" ? unreadMessages : to === "/app/demandes" ? pendingReceived : 0);
 

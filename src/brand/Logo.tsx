@@ -10,8 +10,8 @@ const U = (dx: number) => `M${10 + dx} 10H${24 + dx}V54a11 11 0 0 0 22 0V10H${60
 type Tone = "light" | "dark" | "mono" | "mono-dark";
 
 const INKS: Record<Tone, { a: string; b: string; mix?: string; bg?: string }> = {
-  light: { a: "#5B0015", b: "#80AEE8", mix: "#2E0013" },
-  dark: { a: "#F7F2E0", b: "#80AEE8", mix: "#7CA5CB" },
+  light: { a: "#0D0C0B", b: "#F03A17", mix: "#7A1A08" },
+  dark: { a: "#F3EFE7", b: "#F03A17", mix: "#B02A10" },
   mono: { a: "currentColor", b: "currentColor", bg: "var(--bg)" },
   "mono-dark": { a: "currentColor", b: "currentColor", bg: "var(--bg)" },
 };

@@ -10,9 +10,10 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const pub = path.join(root, "public");
 fs.mkdirSync(path.join(pub, "brand"), { recursive: true });
 
-const BORDEAUX = "#5B0015", HORIZON = "#80AEE8", IVORY = "#F7F2E0";
-const MIX_LIGHT = "#2E0013"; // bordeaux × horizon (multiplication des encres sur fond clair)
-const MIX_DARK = "#7CA5CB"; // ivoire × horizon sur fond bordeaux
+// Charte v3 (14 novembre 2026) : Nuit, Cinabre, Papier. Les noms de constantes d’origine sont gardés comme rôles.
+const BORDEAUX = "#0D0C0B", HORIZON = "#F03A17", IVORY = "#F3EFE7";
+const MIX_LIGHT = "#7A1A08"; // bordeaux × horizon (multiplication des encres sur fond clair)
+const MIX_DARK = "#B02A10"; // ivoire × horizon sur fond bordeaux
 
 /*
  * Le symbole : les deux U de CAMPUUS, imbriqués. Chaque U est une forme pleine (bras de 14, rayon extérieur 25),
@@ -88,10 +89,10 @@ const og = `<html><head>${fontCss()}<style>
 body{margin:0;width:1200px;height:630px;background:${IVORY};font-family:"Plus Jakarta Sans Variable",sans-serif;color:${BORDEAUX};position:relative;overflow:hidden}
 .logo{position:absolute;left:72px;top:52px;display:flex;align-items:center;gap:16px;font-weight:800;font-size:32px;letter-spacing:-1.4px}
 .title{position:absolute;left:72px;top:170px;width:520px;font-weight:800;font-size:58px;letter-spacing:-2.6px;line-height:1.04}
-.sub{position:absolute;left:72px;top:430px;width:560px;font-size:22px;line-height:1.4;color:#4a2a33;font-family:Inter,system-ui,sans-serif}
+.sub{position:absolute;left:72px;top:430px;width:560px;font-size:22px;line-height:1.4;color:#57534c;font-family:Inter,system-ui,sans-serif}
 .grid{position:absolute;right:72px;top:150px}
 .slot{position:absolute;right:72px;top:150px;width:540px;height:312px}
-.foot{position:absolute;left:72px;bottom:48px;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#6e4a55;font-family:Inter,system-ui,sans-serif}
+.foot{position:absolute;left:72px;bottom:48px;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#57534c;font-family:Inter,system-ui,sans-serif}
 </style></head><body>
 <div class="logo"><svg viewBox="0 0 100 90" width="52" height="47">${mark(light)}</svg>CAMPUUS</div>
 <div class="title">Bloqué sur un cours ? Trouve quelqu'un qui peut t'aider.</div>

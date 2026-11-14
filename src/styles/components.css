@@ -1,22 +1,22 @@
 /* ───────────── Composants partagés (site et application) ───────────── */
 
 /* Logo */
-.logo { display: inline-flex; align-items: center; gap: calc(var(--logo-size, 28px) * 0.42); color: var(--bordeaux); text-decoration: none; font-family: var(--font-display); font-weight: 800; letter-spacing: -0.045em; font-size: calc(var(--logo-size, 28px) * 0.86); line-height: 1; }
-[data-tone="bordeaux"] .logo, [data-tone="deep"] .logo, .logo[data-tone-logo="dark"], .logo[data-tone-logo="mono-dark"] { color: var(--ivory); }
+.logo { display: inline-flex; align-items: center; gap: calc(var(--logo-size, 28px) * 0.42); color: var(--bordeaux); text-decoration: none; font-family: var(--font-mark); font-weight: 800; letter-spacing: -0.045em; font-size: calc(var(--logo-size, 28px) * 0.86); line-height: 1; }
+[data-tone="bordeaux"] .logo, [data-tone="deep"] .logo, .logo[data-tone-logo="dark"], .logo[data-tone-logo="mono-dark"], [data-tone="nuit"] .logo { color: var(--ivory); }
 
 /* Boutons */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem; min-height: 44px; padding: 0.7rem 1.25rem; border-radius: var(--radius); font-weight: 600; font-size: 0.9375rem; line-height: 1.2; text-decoration: none; border: 1px solid transparent; transition: background-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease); white-space: nowrap; }
 .btn--lg { min-height: 52px; padding: 0.9rem 1.6rem; font-size: 1.0625rem; }
 .btn--sm { min-height: 36px; padding: 0.4rem 0.85rem; font-size: 0.875rem; }
-.btn--primary { background: var(--bordeaux); color: var(--ivory); border-color: var(--bordeaux); }
-.btn--primary:hover { background: var(--bordeaux-soft); border-color: var(--bordeaux-soft); }
+.btn--primary { background: var(--cinabre); color: var(--nuit); border-color: var(--cinabre); }
+.btn--primary:hover { background: var(--nuit); color: var(--papier); border-color: var(--nuit); }
 .btn--primary:active { transform: translateY(1px); }
 .btn--secondary { background: transparent; color: var(--bordeaux); border-color: var(--bordeaux); }
 .btn--secondary:hover { background: var(--bordeaux-tint); }
-[data-tone="bordeaux"] .btn--secondary, [data-tone="deep"] .btn--secondary { color: var(--ivory); border-color: var(--ivory); }
-[data-tone="bordeaux"] .btn--secondary:hover, [data-tone="deep"] .btn--secondary:hover { background: var(--bordeaux-soft); }
-[data-tone="bordeaux"] .btn--primary, [data-tone="deep"] .btn--primary { background: var(--ivory); color: var(--bordeaux); border-color: var(--ivory); }
-[data-tone="bordeaux"] .btn--primary:hover, [data-tone="deep"] .btn--primary:hover { background: #fff; }
+[data-tone="bordeaux"] .btn--secondary, [data-tone="deep"] .btn--secondary, [data-tone="nuit"] .btn--secondary { color: var(--ivory); border-color: var(--ivory); }
+[data-tone="bordeaux"] .btn--secondary:hover, [data-tone="deep"] .btn--secondary:hover, [data-tone="nuit"] .btn--secondary:hover { background: var(--bordeaux-soft); }
+[data-tone="bordeaux"] .btn--primary, [data-tone="deep"] .btn--primary, [data-tone="nuit"] .btn--primary { background: var(--cinabre); color: var(--nuit); border-color: var(--cinabre); }
+[data-tone="bordeaux"] .btn--primary:hover, [data-tone="deep"] .btn--primary:hover, [data-tone="nuit"] .btn--primary:hover { background: var(--papier); color: var(--nuit); border-color: var(--papier); }
 .btn--ghost { background: transparent; color: var(--bordeaux); padding-inline: 0.6rem; }
 .btn--ghost:hover { background: var(--bordeaux-tint); }
 [data-tone="bordeaux"] .btn--ghost, [data-tone="deep"] .btn--ghost { color: var(--ivory); }

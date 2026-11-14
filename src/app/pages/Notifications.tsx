@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Bell, Inbox, MessageSquare, Users, Clock } from "lucide-react";
-import { Button, Empty, relative } from "../../components/ui";
+import { Button, ButtonLink, Empty, relative } from "../../components/ui";
 import { api } from "../../services/api";
 import { useDemo } from "../../services/store";
 import type { Notification } from "../../data/types";
@@ -25,7 +25,7 @@ export function Component() {
         </div>
         {unread.length ? <Button variant="secondary" size="sm" onClick={() => api().markNotificationsRead()}>Tout marquer comme lu</Button> : null}
       </div>
-      {sorted.length === 0 ? <Empty title="Aucune notification." text="Tu seras prévenu ici des demandes d'aide, des messages et de l'activité de tes groupes." /> : (
+      {sorted.length === 0 ? <Empty title="Aucune notification." text="Tu seras prévenu ici des demandes d'aide, des messages et de l'activité de tes groupes." action={<ButtonLink to="/app/trouver" variant="secondary" size="sm">Trouver un étudiant</ButtonLink>} /> : (
         <ul className="notifs">
           {sorted.map((n) => {
             const I = ICON[n.kind];

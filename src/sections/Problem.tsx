@@ -5,21 +5,17 @@ export function Problem() {
     <section className="section problem" id="probleme" aria-labelledby="problem-title">
       <div className="wrap problem__grid">
         <div className="problem__copy">
-          <h2 id="problem-title" data-reveal data-split>{problem.title}</h2>
+          <h2 id="problem-title" data-split>{problem.title}</h2>
           <p className="lead" data-reveal>{problem.lead}</p>
-          <ul className="problem__points">
-            {problem.points.map((p) => (
-              <li key={p.title} data-reveal>
-                <h3>{p.title}</h3>
-                <p>{p.text}</p>
-              </li>
-            ))}
-          </ul>
-          <figure className="photo photo--problem" data-reveal>
-            <img src={`/photos/${problem.chat.photo.src}-${problem.chat.photo.w}.webp`} srcSet={`/photos/${problem.chat.photo.src}-${problem.chat.photo.w / 2}.webp ${problem.chat.photo.w / 2}w, /photos/${problem.chat.photo.src}-${problem.chat.photo.w}.webp ${problem.chat.photo.w}w`} sizes="(max-width: 860px) 90vw, 40vw" alt={problem.chat.photo.alt} width={problem.chat.photo.w} height={Math.round(problem.chat.photo.w / problem.chat.photo.ratio)} loading="lazy" decoding="async" />
-            <figcaption>{problem.chat.photo.caption}</figcaption>
-          </figure>
         </div>
+        <ul className="problem__points" data-stagger>
+          {problem.points.map((p) => (
+            <li key={p.title}>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ul>
         <figure className="chat" data-reveal aria-label="Une conversation de groupe où la question reste sans réponse">
           <figcaption className="chat__head">
             <span className="chat__name">{problem.chat.name}</span>
@@ -36,6 +32,10 @@ export function Problem() {
             ))}
           </ul>
         </figure>
+        <figure className="photo photo--problem" data-reveal>
+            <img src={`/photos/${problem.chat.photo.src}-${problem.chat.photo.w}-web.webp`} srcSet={`/photos/${problem.chat.photo.src}-${problem.chat.photo.w / 2}.webp ${problem.chat.photo.w / 2}w, /photos/${problem.chat.photo.src}-${problem.chat.photo.w}-web.webp ${problem.chat.photo.w}w`} sizes="(max-width: 860px) 90vw, 24vw" alt={problem.chat.photo.alt} width={problem.chat.photo.w} height={Math.round(problem.chat.photo.w / problem.chat.photo.ratio)} loading="lazy" decoding="async" />
+            <figcaption>{problem.chat.photo.caption}</figcaption>
+          </figure>
       </div>
     </section>
   );

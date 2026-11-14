@@ -2,7 +2,7 @@ import { forwardRef, type ButtonHTMLAttributes, type InputHTMLAttributes, type R
 import { Link, type LinkProps } from "react-router-dom";
 import { ArrowRight, Loader2 } from "lucide-react";
 import type { Availability, HelpRequest, Student } from "../data/types";
-import { AVAILABILITY_LABEL, REQUEST_STATUS_LABEL } from "../data/mock";
+import { AVAILABILITY_LABEL, REQUEST_STATUS_LABEL } from "../data/constants";
 
 /* ───────── Boutons : le bloc bordeaux plein (action), le filet (secondaire), le lien (tertiaire) ───────── */
 type Variant = "primary" | "secondary" | "ghost" | "horizon";

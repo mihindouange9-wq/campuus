@@ -3,16 +3,12 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "@fontsource-variable/plus-jakarta-sans/wght.css";
 import "@fontsource-variable/inter/wght.css";
+import "@fontsource/instrument-serif/latin-400.css";
 import "./styles/tokens.css";
 import "./styles/base.css";
 import "./styles/components.css";
 import "./styles/motion.css";
-import { setApi } from "./services/api";
-import { demoApi } from "./services/demo";
 import Landing from "./pages/Landing";
-import { Nuance } from "./components/Nuance";
-
-setApi(demoApi);
 
 const Shell = lazy(() => import("./app/Shell"));
 const loading = <div className="app-loading" aria-live="polite">Chargement de l'espace CAMPUUS…</div>;
@@ -43,7 +39,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Nuance />
     <RouterProvider router={router} />
   </StrictMode>,
 );

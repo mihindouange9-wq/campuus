@@ -54,16 +54,23 @@ export function Nuance() {
     };
     const loop = (now: number) => {
       if (!running) return;
-      if (now - last > 40) { last = now; draw(now / 1000); }
+      // La page d'accueil met la nuance en pause (data-nuance="off") quand elle est entièrement recouverte
+      if (now - last > 40 && document.documentElement.dataset.nuance !== "off") { last = now; draw(now / 1000); }
       raf = requestAnimationFrame(loop);
     };
-    if (reduced) draw(12);
-    else raf = requestAnimationFrame(loop);
-    const onVisibility = () => { running = !document.hidden && !reduced; if (running) raf = requestAnimationFrame(loop); else cancelAnimationFrame(raf); };
+    // Le premier écran (titre) passe d'abord : les nuages sont dessinés puis fondus juste après, sans retarder le texte.
+    let started = false;
+    const start = window.setTimeout(() => {
+      started = true;
+      draw(reduced ? 12 : performance.now() / 1000);
+      canvas.classList.add("nuance--on");
+      if (!reduced) raf = requestAnimationFrame(loop);
+    }, reduced ? 0 : 450);
+    const onVisibility = () => { running = !document.hidden && !reduced; cancelAnimationFrame(raf); if (running && started) raf = requestAnimationFrame(loop); };
     const onResize = () => { size(); if (reduced) draw(12); };
     document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("resize", onResize);
-    return () => { running = false; cancelAnimationFrame(raf); document.removeEventListener("visibilitychange", onVisibility); window.removeEventListener("resize", onResize); };
+    return () => { running = false; clearTimeout(start); cancelAnimationFrame(raf); document.removeEventListener("visibilitychange", onVisibility); window.removeEventListener("resize", onResize); };
   }, []);
   return <canvas ref={ref} className="nuance" aria-hidden="true" />;
 }

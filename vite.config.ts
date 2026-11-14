@@ -17,7 +17,15 @@ function seo(): Plugin {
   const jsonld = JSON.stringify(data).replace(/</g, "\\u003c");
   return {
     name: "campuus-seo",
-    transformIndexHtml: (html) => html.split("__SITE_URL__").join(SITE_URL).replace("<!--@jsonld-->", `<script type="application/ld+json">${jsonld}</script>`),
+    transformIndexHtml: {
+      order: "post",
+      handler(html, ctx) {
+        // Précharge des deux polices latines (titres et texte) : le premier écran s'affiche dans sa police définitive
+        const fonts = Object.keys(ctx.bundle ?? {}).filter((f) => /(plus-jakarta-sans|inter)-latin-wght-normal-[^/]*\.woff2$/.test(f));
+        const preload = fonts.map((f) => `<link rel="preload" href="/${f}" as="font" type="font/woff2" crossorigin />`).join("");
+        return html.split("__SITE_URL__").join(SITE_URL).replace("<!--@jsonld-->", `${preload}<script type="application/ld+json">${jsonld}</script>`);
+      },
+    },
     generateBundle() {
       const today = new Date().toISOString().slice(0, 10);
       const urls = ["/", "/partenaires", "/rejoindre"].map((p) => `  <url><loc>${SITE_URL}${p}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${p === "/" ? "1.0" : "0.7"}</priority></url>`).join("\n");

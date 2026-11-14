@@ -229,10 +229,7 @@ export const RESOURCES: Resource[] = [
 /** Couvertures des groupes : photographies de campus (Wikimedia Commons, crédits en pied de page du site). */
 export const GROUP_COVERS: Record<string, { src: string; w: number }> = { g1: { src: "sous-les-arbres", w: 700 }, g2: { src: "fablab", w: 700 }, g3: { src: "campus-dakar", w: 500 }, g4: { src: "campus-yaounde", w: 700 }, g5: { src: "salle", w: 700 } };
 
-export const DAYS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
-export const DAYS_LONG = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
-export const HOURS = Array.from({ length: 13 }, (_, i) => 8 + i); // 8 h → 20 h
 
-export const AVAILABILITY_LABEL: Record<Student["availability"], string> = { now: "Disponible maintenant", tonight: "Disponible ce soir", weekend: "Disponible ce week-end", off: "Indisponible cette semaine" };
-export const REQUEST_STATUS_LABEL: Record<HelpRequest["status"], string> = { envoyee: "Envoyée", en_attente: "En attente", acceptee: "Acceptée", refusee: "Refusée", expiree: "Expirée" };
 export const REQUEST_KIND_LABEL: Record<HelpRequest["kind"], string> = { comprendre: "Je ne comprends pas le cours", exercice: "Je bloque sur un exercice", revision: "Je révise avant un examen", methode: "Je cherche la bonne méthode" };
+
+export { DAYS, DAYS_LONG, HOURS, AVAILABILITY_LABEL, REQUEST_STATUS_LABEL } from "./constants";

@@ -1,13 +1,15 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { Header } from "../sections/Header";
-import { Footer } from "../sections/Footer";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { Header3 as Header, Footer3 as Footer } from "../sections/v3";
 import { Button, ButtonLink, Field, Input, Select } from "../components/ui";
 import { join } from "../content/fr";
 import { api } from "../services/api";
 import { COUNTRIES, FIELDS, INSTITUTIONS } from "../data/mock";
 import { LEVELS, type PilotSignup } from "../data/types";
-import { setupInk, setupReveals } from "../lib/motion";
-import "./landing.css";
+import { pauseNuance, setupInk, setupReveals } from "../lib/motion";
+import "../services/boot";
+import "./site.css";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -18,6 +20,7 @@ export function Component() {
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   useEffect(() => { document.title = "Rejoindre la communauté pilote — CAMPUUS"; window.scrollTo(0, 0); }, []);
   useEffect(() => setupInk(document.body), []);
+  useEffect(() => pauseNuance(), []);
   useEffect(() => setupReveals(document.querySelector("main")!), []);
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const institutions = INSTITUTIONS.filter((i) => i.country === form.country);
@@ -45,13 +48,14 @@ export function Component() {
     <>
       <Header />
       <main id="contenu" className="landing">
-        <section className="page">
+        <section className="page" data-tone="nuit">
           <div className="wrap">
             <div className="join__grid">
               <div>
+                <Link to="/" className="page__back"><ArrowLeft size={16} aria-hidden="true" /> Retour à l'accueil</Link>
                 <div className="page__head">
-                  <h1 style={{ fontSize: "var(--fs-h2)" }}>{join.title}</h1>
-                  <p className="lead">{join.lead}</p>
+                  <h1 style={{ fontSize: "var(--fs-h2)" }} data-split>{join.title}</h1>
+                  <p className="lead" data-reveal>{join.lead}</p>
                 </div>
             {state === "done" ? (
               <div className="form__success" role="status">
@@ -60,7 +64,8 @@ export function Component() {
                 <ButtonLink to="/app" arrow>{join.success.cta}</ButtonLink>
               </div>
             ) : (
-              <form className="form" onSubmit={submit} noValidate>
+              <form className="form" onSubmit={submit} noValidate data-reveal>
+                <p className="form__required">Tous les champs sont obligatoires, sauf mention « facultatif ».</p>
                 <div className="form__row">
                   <Field id="name" label={join.fields.name} error={errors.name}><Input id="name" value={form.name} onChange={set("name")} autoComplete="given-name" aria-invalid={!!errors.name} /></Field>
                   <Field id="email" label={join.fields.email} error={errors.email}><Input id="email" type="email" inputMode="email" value={form.email} onChange={set("email")} autoComplete="email" aria-invalid={!!errors.email} /></Field>
@@ -114,8 +119,8 @@ export function Component() {
               </form>
             )}
               </div>
-              <figure className="photo photo--join">
-                <img src={`/photos/${join.photo.src}-${join.photo.w}.webp`} srcSet={`/photos/${join.photo.src}-${join.photo.w / 2}.webp ${join.photo.w / 2}w, /photos/${join.photo.src}-${join.photo.w}.webp ${join.photo.w}w`} sizes="(max-width: 860px) 60vw, 30vw" alt={join.photo.alt} width={join.photo.w} height={Math.round(join.photo.w / join.photo.ratio)} loading="lazy" decoding="async" />
+              <figure className="photo photo--join" data-wipe>
+                <img src={`/photos/${join.photo.src}-${join.photo.w}-web.webp`} srcSet={`/photos/${join.photo.src}-${join.photo.w / 2}.webp ${join.photo.w / 2}w, /photos/${join.photo.src}-${join.photo.w}-web.webp ${join.photo.w}w`} sizes="(max-width: 860px) 60vw, 30vw" alt={join.photo.alt} width={join.photo.w} height={Math.round(join.photo.w / join.photo.ratio)} loading="lazy" decoding="async" />
                 <figcaption>Photographie : Wikimedia Commons, domaine public.</figcaption>
               </figure>
             </div>

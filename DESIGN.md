@@ -1,35 +1,31 @@
 ---
 name: CAMPUUS
-description: L'emploi du temps — la disponibilité est la première information ; l'aide apparaît là où quelqu'un est libre.
+description: Charte v3 (14 novembre 2026) — Nuit, Papier, Cinabre ; titres Instrument Serif en capitales ; la phrase de positionnement est le menu ; l'emploi du temps reste le langage des illustrations.
 colors:
-  bordeaux: "#5b0015"
-  horizon: "#80aee8"
-  ivory: "#f7f2e0"
-  ink: "#2b171d"
-  ink-muted: "#6b4f58"
-  ink-faint: "#7a5f69"
-  bordeaux-deep: "#3d000e"
-  bordeaux-soft: "#7a1f33"
-  bordeaux-tint: "#efe1e1"
-  bordeaux-mix: "#2e0013"
-  horizon-ink: "#2f5f96"
-  horizon-deep: "#5b8fcc"
-  horizon-tint: "#e2ecf8"
-  horizon-soft: "#b9d2f1"
-  horizon-on-dark: "#a9c8ee"
-  ivory-deep: "#ece5cc"
-  ivory-soft: "#fbf8ee"
-  paper-muted: "#d9c9cd"
+  nuit: "#0d0c0b"
+  papier: "#f3efe7"
+  cinabre: "#f03a17"
+  brume: "#d9d5cc"
+  graphite: "#8a857c"
+  nuit-soft: "#1a1917"
+  nuit-line: "#2b2926"
+  graphite-ink: "#57534c"
+  cinabre-ink: "#a8240a"
+  cinabre-soft: "#f7b3a3"
+  papier-soft: "#faf8f3"
+  papier-deep: "#e6e1d7"
+  ink-muted: "#45423c"
+  paper-muted: "#b9b4aa"
   ok: "#2e6b47"
   ok-tint: "#e3eee6"
-  error: "#b3261e"
-  error-tint: "#f6e2e0"
-  warn: "#7a5a00"
-  warn-tint: "#f3ebd3"
-  rule: "rgb(91 0 21 / 0.14)"
-  rule-strong: "rgb(91 0 21 / 0.32)"
-  rule-on-dark: "rgb(247 242 224 / 0.18)"
-  rule-on-dark-strong: "rgb(247 242 224 / 0.4)"
+  error: "#a8240a"
+  error-tint: "#f6ded7"
+  warn: "#6b5200"
+  warn-tint: "#efe7d0"
+  rule: "rgb(13 12 11 / 0.16)"
+  rule-strong: "rgb(13 12 11 / 0.42)"
+  rule-on-dark: "rgb(243 239 231 / 0.18)"
+  rule-on-dark-strong: "rgb(243 239 231 / 0.42)"
 typography:
   display:
     fontFamily: "Plus Jakarta Sans Variable, Plus Jakarta Sans, Segoe UI, system-ui, sans-serif"
@@ -484,3 +480,103 @@ Le client a demandé une page plus vivante : le langage de mouvement est orchest
 ## Photographies (v1.4, 9 octobre 2026)
 
 À la demande du client (« des images d'université avec des élèves souriants, un site vivant »), douze photographies réelles de Wikimedia Commons (licences CC BY-SA 3.0/4.0, CC0, domaine public ; crédits dans `docs/CREDITS.md`, `src/content/photos.ts` et le pied de page, bloc « Crédits photographiques ») entrent dans le système : bande « Des campus, des visages, des soirées de révision » sous le hero (six photos posées comme des créneaux, formats alternés 4:3 / 3:4 / 1:1, légende ville + lieu, relief au survol), photo d'étudiant seul dans la section Problème, bibliothèque dans la section Confiance, diplômés souriants sous l'encre bordeaux en clôture (`.final__photo` + voile bordeaux en multiplication, texte ivoire inchangé), bannière d'amphithéâtre sur Partenaires, portrait souriant à côté du formulaire Rejoindre, couvertures de campus sur les groupes de l'application. Règles : toujours un `<figcaption>` ou un crédit accessible, jamais une photo comme fond de texte sans voile, jamais une légende qui laisse entendre un partenariat ; fichiers WebP en deux largeurs (`public/photos/<nom>-<largeur>.webp`), `srcset` + `sizes`, chargement différé sauf au-dessus de la ligne de flottaison ; régénération par `node tools/fetch-photos.mjs`.
+
+## Refonte de l'accueil et système de mouvement (v2, 12 novembre 2026)
+
+Cette section prévaut sur les paragraphes antérieurs quand ils se contredisent (notamment « La nuance v1.3 » pour les voiles, et les durées libres de « Mouvement v1.1 »).
+
+### Rythme des fonds
+- **La nuance** (canvas des nuages) n'apparaît plus que sous **le hero et la clôture** de l'accueil, derrière un voile ivoire uniforme à 60 %. Elle est mise en pause (`data-nuance="off"` sur `<html>`) dès qu'elle est recouverte : sections de lecture de l'accueil, pages Rejoindre et Partenaires, application.
+- **Sections de lecture** : Ivory Mist franc (`--ivory`), ouvertes par un filet. Plus aucun voile translucide : `.section`, `.page`, `.app-main`, la barre latérale, l'en-tête et les onglets de l'application sont opaques.
+- **« Trois gestes »** est l'unique section pleine **Night Bordeaux** (`data-tone="bordeaux"`), les feuilles d'interface y sont posées en `ivory-soft`.
+- **« Fonctionnalités »** est l'unique surface teintée **Cool Horizon** : `color-mix(in srgb, var(--horizon) 34%, var(--ivory-soft))` (≈ `#d1dfee`), textes secondaires en `ink-muted`.
+- Ordre : nuance (hero) → ivoire (campus, problème) → bordeaux (trois gestes) → ivoire (mise en relation) → horizon teinté (fonctionnalités) → ivoire (capitales, confiance) → nuance (clôture) → bordeaux profond (pied de page).
+
+### Échelle typographique de l'accueil (portée `.home`)
+- h1 : `clamp(2.375rem, min(1rem + 5vw, 10vh), 5.25rem)` (84 px à 1440, 37 px à 390), interligne 1.02.
+- h2 : `clamp(1.875rem, 0.9rem + 3.9vw, 4.5rem)` (≈ 70 px à 1440, 30 px à 390) ; titre de clôture jusqu'à 5.25rem, en bordeaux.
+- h3 : `clamp(1.1875rem, 1.05rem + 0.5vw, 1.5rem)` ; chapeau : `clamp(1.0625rem, 0.96rem + 0.42vw, 1.375rem)` ; corps : `clamp(1rem, 0.95rem + 0.22vw, 1.125rem)` (18 px à 1440, 16 px à 390).
+- Dans les grilles horaires, aucun texte sous 0.625rem ; 0.6875–0.75rem pour les créneaux nommés.
+- Les jetons globaux (`tokens.css`) sont inchangés : pages secondaires et application gardent leur échelle.
+
+### Mise en page de l'accueil
+- Hero : 1.05fr / 1fr ; sur téléphone la grille montre jeudi → samedi, 15 h → 20 h, et son début est visible dès le premier écran.
+- Problème : titre sur 10/12 puis trois colonnes (constats 4, conversation 5, photographie 3) ; sur téléphone les constats se font glisser.
+- Fonctionnalités : titre collant 4/12 + registre à deux colonnes 8/12 ; carrousel à défilement aimanté sous 860 px.
+- Tout carrousel (campus, constats, fonctionnalités) porte un repère de position `.rail` (barre + « 1 / n »).
+- Section : `--section: clamp(2rem, 0.3rem + 7vw, 8.5rem)` sur l'accueil.
+
+### Système de mouvement (jetons)
+| Jeton | Valeur | Usage |
+|---|---|---|
+| `--t-touch` | 160 ms | contact : survol, pression, focus |
+| `--t-state` | 400 ms | changement d'état sur le site |
+| `--t-enter` | 850 ms | entrée : titre, bloc, feuille |
+| `--t-app` | 240 ms | tout mouvement de l'application (jamais plus de 300 ms) |
+| `--ease` | `cubic-bezier(0.22, 1, 0.36, 1)` | la seule courbe d'arrivée |
+| `--ease-exit` | `cubic-bezier(0.4, 0, 1, 1)` | ce qui part, plus vite qu'il n'est arrivé |
+
+Miroir JavaScript : `MOTION` dans `src/lib/motion.ts`. Règles : animations en transform / opacity / clip-path uniquement ; cascade de 40–80 ms sur le site, 20 ms par ligne (plafonnée à 100 ms) dans l'application ; les boucles s'arrêtent hors écran ; déplacement de survol ≤ 2 px dans l'application ; sous `prefers-reduced-motion`, état final et aucune boucle.
+
+### Scènes collantes (`src/lib/landingMotion.ts`)
+Deux au plus, en `position: sticky`, sans détournement du défilement ; le script lit la position et n'écrit que des transform / opacity.
+- **Trois gestes** (`.how.is-scrolly`) : piste = hauteur d'écran + 150vh (43svh sur téléphone) ; les trois feuilles se posent l'une sur l'autre, l'étape en cours s'allume (`data-step`), une barre Cool Horizon suit la progression.
+- **Mise en relation** (`.match.is-scrolly`) : la grille de Nadège (Cool Horizon, groupe en `multiply`) glisse sur celle de Kevin (bordeaux) ; à la superposition, `.is-apart` tombe, les étiquettes « commun » et la ligne « Créneaux communs » apparaissent.
+- État par défaut (sans script, mouvement réduit, écran de moins de 640 px de haut) : rien n'est épinglé, les trois étapes sont affichées à la suite et les deux grilles sont déjà superposées.
+- Scènes non épinglées : la grille des capitales se remplit ville après ville avec le défilement ; la bande des campus dérive horizontalement sur ordinateur.
+
+### Zones tactiles de l'application
+Sous 900 px, boutons, puces, liens d'en-tête de bloc, liens de retour, membres, avatar et bandeau de démonstration font 44 px au moins ; les cellules de la grille éditable passent à 44 px. La densité de l'ordinateur est inchangée.
+
+## Version courte et orientation (v3, 13 novembre 2026)
+
+Cette section prévaut sur la v2 pour la structure de l'accueil.
+
+- **Six blocs, sept écrans au plus** : ouverture → problème → comment ça marche → fonctionnalités → capitales + confiance → clôture, puis le pied de page. La bande des campus, la section autonome « Mise en relation » et les sections séparées Capitales / Confiance ne sont plus montées (les composants restent dans `src/sections`).
+- **Une seule scène collante** (`.how.is-scrolly`, à partir de 721 px) : quatre feuilles, les trois gestes puis la mise en relation (la grille de Nadège glisse sur celle de Kevin, `.how__match.is-apart` tombe à la superposition) ; course de 100vh ; un seul texte visible à la fois. Sur téléphone, pas d'épinglage : les quatre étapes se font glisser avec repère « 1 / 4 ».
+- **Échelle** : h2 de l'accueil `clamp(1.875rem, 0.9rem + 3.2vw, 3.5rem)` ; h2 de la section capitales + confiance jusqu'à 2.5rem ; marges de section `clamp(2.5rem, 1rem + 5vw, 5.5rem)` (36 px sur téléphone).
+- **Fonctionnalités** : grille 4 × 2 sur ordinateur, carrousel d'une rangée sous 860 px.
+- **Orientation** : deux actions dès le premier écran (bouton plein « Rejoindre CAMPUUS », bouton à filet « Voir la démo ») ; lien du menu marqué `aria-current` pour la section courante ; menu mobile avec les deux actions en bas ; rappel « Rejoindre CAMPUUS » à la fin de la scène ; barre d'action fixe sur téléphone après le premier écran, retirée à l'arrivée de la clôture ; lien « Retour à l'accueil » et mention des champs obligatoires sur Rejoindre et Partenaires ; bandeau « Démonstration » compact sur téléphone.
+- **Chargement** : le premier affichage ne contient que l'en-tête et le hero ; le reste (`src/pages/LandingRest.tsx`) est monté 350 ms après ; la nuance apparaît en fondu 450 ms après.
+
+
+## Charte v3 : Nuit, Papier, Cinabre (v4 du document, 14 novembre 2026)
+
+Décision du propriétaire : refonte complète sur la structure visuelle et les effets d'un site de référence, nouvelle palette, nouvelles polices de titres. **Cette section prévaut sur tout ce qui précède** ; les paragraphes antérieurs (palette bordeaux / horizon / ivoire, titres Plus Jakarta Sans, la nuance, scènes collantes, règles « des deux encres » et « du bloc bordeaux ») décrivent l'historique et ne s'appliquent plus. Rien n'est repris de la référence hormis la structure et les effets : aucun texte, image, logo ni police.
+
+### Palette
+| Nom | Valeur | Rôle | Contraste mesuré |
+|---|---|---|---|
+| Nuit | `#0D0C0B` | fond principal du site, encre sur fonds clairs | — |
+| Papier | `#F3EFE7` | texte sur Nuit, fonds clairs, fond de l'application | 17:1 sur Nuit |
+| Cinabre | `#F03A17` | l'éclat : survol, un mot par écran, action principale, créneaux disponibles | 5,0:1 sur Nuit ; texte Nuit sur Cinabre 5,0:1 ; 3,4:1 sur Papier (grands titres seulement) |
+| Brume | `#D9D5CC` | sections claires, panneaux de formulaire, surfaces d'information | — |
+| Graphite | `#8A857C` | textes éteints et filets sur Nuit | 5,3:1 sur Nuit |
+
+Nuances dérivées : Graphite encre `#57534C` (texte éteint sur Papier 7,0:1 et sur Brume 5,5:1), Cinabre encre `#A8240A` (texte sur Papier 6,4:1, sur Brume 5,0:1), Papier atténué `#B9B4AA` (texte secondaire sur Nuit), Cinabre adouci `#F7B3A3`, Nuit adoucie `#1A1917` (symbole fantôme). Les anciens noms de jetons (`--bordeaux`, `--horizon`, `--ivory`…) restent dans `tokens.css` comme alias de rôle pour l'application et les composants partagés.
+
+Règles : le bouton principal est Cinabre à texte Nuit (sur un panneau Brume, Nuit à texte Papier) ; Cinabre n'est jamais un petit texte sur fond clair ; un seul mot Cinabre par écran dans les titres ; aucune autre teinte.
+
+### Typographie
+- **Titres** : Instrument Serif 400, capitales, interlignage 0,86–0,98. Phrase d'ouverture `--fs-giant: clamp(2.9rem, min(12.4vw, 18.6vh), 12rem)` (171 px à 1440×900, 55 px à 390). h2 de section `clamp(2.125rem, 1rem + 4.2vw, 4.75rem)`.
+- **Texte et petites capitales** : Inter (liens du titre, étiquettes, numéros : 650, interlettrage 0,12–0,14em, capitales).
+- **Mot-symbole** : Plus Jakarta Sans 800, interlettrage −0,045em ; géant en bas à droite de l'ouverture et du pied de page.
+- Dans l'application, h1 en Instrument Serif (bas de casse), h2–h4 en Inter 650.
+
+### Structure du site
+1. **Ouverture** (un écran, fond Nuit) : la phrase imposée en capitales géantes est le menu ; un lien à flèche est glissé dans chaque ligne ; le symbole aux deux U en fantôme ; phrase d'appui et deux actions en bas à gauche ; mot-symbole en bas à droite. Sur téléphone : centré, un lien sous chaque ligne.
+2. **Le problème** : quatre constats en grands mots sur filets, texte à droite.
+3. **Comment ça marche** (fond Papier) : quatre étapes numérotées « 01. » avec la maquette produit correspondante (recherche, résultats, demande, créneau commun) ; quatre colonnes au-dessus de 1100 px, carrousel en dessous.
+4. **Fonctionnalités** (fond Brume) : liste dépliable à « + » ; l'entrée ouverte montre sa mini-illustration.
+5. **Capitales et confiance** : noms de villes en fantôme qui glissent, grille des capitales, liste dépliable « dans la démo / envisagé ».
+6. **Clôture et pied de page** : phrase imposée en géant (dernier mot en Cinabre), actions, trois photographies en noir et blanc, rangée de liens à flèche oblique, crédit MÉTHODE AURA, mot-symbole géant.
+- En-tête : barre Nuit collante de 56 px (mot-symbole, section courante, « Rejoindre CAMPUUS », « MENU + ») ; menu plein écran aux liens géants.
+- Rejoindre, Partenaires, 404 : titre géant sur Nuit, formulaire sur panneau Brume, sections sur filets.
+
+### Effets
+- **L'éclat** : au survol ou au focus d'un lien du titre (pointeur et écran large seulement), un panneau Cinabre envahit l'écran par `clip-path` ; la phrase passe en Nuit et un aperçu de la section d'arrivée apparaît (grille de créneaux, liste des fonctionnalités, états de confiance, étapes du lancement).
+- Révélation des titres par masque (mots qui montent), mots fantômes liés au défilement (`[data-ghost]`), listes dépliables (`<details name>`), menu qui se déroule par `clip-path`, photographies qui retrouvent leur couleur au survol, grille des capitales qui se remplit.
+- Jetons de mouvement inchangés (`--t-touch`, `--t-state`, `--t-enter`, `--t-app`, `--ease`, `--ease-exit`) ; transform, opacity et clip-path uniquement ; aucune scène collante ; sous `prefers-reduced-motion`, état final.
+
+### Illustrations
+L'emploi du temps reste le langage : cours en blocs Nuit sur feuille Papier, étudiants disponibles en Cinabre, recouvrement en multiplication pour le créneau commun. Les fonds vivants (la nuance) et les sections bordeaux n'existent plus ; les fichiers correspondants restent dans le dépôt sans être montés.

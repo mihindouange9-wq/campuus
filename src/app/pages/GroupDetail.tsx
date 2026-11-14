@@ -30,7 +30,7 @@ export function Component() {
     <div className="screen">
       <p><Link to="/app/groupes">← Tous les groupes</Link></p>
       <div className="group__hero">
-        <img src={`/photos/${GROUP_COVERS[g.id]?.src ?? "campus-yaounde"}-${(GROUP_COVERS[g.id]?.w ?? 700) * 2}.webp`} alt="" width={1400} height={700} decoding="async" />
+        <img src={`/photos/${GROUP_COVERS[g.id]?.src ?? "campus-yaounde"}-${(GROUP_COVERS[g.id]?.w ?? 700) * 2}-web.webp`} alt="" width={1400} height={700} decoding="async" />
       </div>
       <div className="screen__head">
         <div>

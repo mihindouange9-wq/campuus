@@ -22,6 +22,17 @@ export function Component() {
   const [menu, setMenu] = useState(false);
   const [confirmBlock, setConfirmBlock] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
+  const threadRef = useRef<HTMLElement>(null);
+  // Téléphone : la conversation occupe exactement la hauteur restante (en-têtes au-dessus, onglets en dessous), le champ de saisie reste visible.
+  useEffect(() => {
+    const el = threadRef.current;
+    if (!el) return;
+    const measure = () => el.style.setProperty("--thread-top", `${Math.round(el.getBoundingClientRect().top + window.scrollY)}px`);
+    measure();
+    window.addEventListener("resize", measure);
+    const t = window.setTimeout(measure, 300);
+    return () => { window.removeEventListener("resize", measure); clearTimeout(t); };
+  }, [other?.id]);
   useEffect(() => { document.title = other ? `${other.pseudo} — Messages — CAMPUUS` : "Messages — CAMPUUS"; }, [other]);
   useEffect(() => { listRef.current?.scrollTo({ top: listRef.current.scrollHeight }); }, [conv?.messages.length, id]);
   useEffect(() => {
@@ -61,7 +72,7 @@ export function Component() {
   const online = (s: { availability: string }) => s.availability === "now";
 
   return (
-    <div className="screen">
+    <div className={`screen${other ? " screen--thread" : ""}`}>
       <div className="screen__head">
         <div>
           <h1>Messages</h1>
@@ -92,7 +103,7 @@ export function Component() {
           </ul>
 
           {other ? (
-            <section className="thread" aria-label={`Conversation avec ${other.pseudo}`}>
+            <section className="thread" ref={threadRef} aria-label={`Conversation avec ${other.pseudo}`}>
               <header className="thread__head">
                 <Button variant="ghost" size="sm" className="thread__back" aria-label="Retour aux conversations" onClick={() => navigate("/app/messages")}><ArrowLeft size={18} /></Button>
                 <Link to={`/app/etudiants/${other.id}`}><Avatar student={other} size={40} /></Link>

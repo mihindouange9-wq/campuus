@@ -1,9 +1,9 @@
-import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { ButtonLink } from "../components/ui";
 import { Timetable } from "../components/Timetable";
 import { hero } from "../content/fr";
+import { HOURS } from "../data/constants";
 import { gsap, prefersReducedMotion, splitWords, useGSAP } from "../lib/motion";
 
 const COURSES = [
@@ -24,9 +24,22 @@ const FREE = [
   { day: 5, hour: 9, label: "Aïcha N.", sub: "USTM · M1", id: "e" },
   { day: 5, hour: 15, label: "Nadège K.", sub: "Douala · M2", id: "f" },
 ];
+/* Sur téléphone, la grille montre la fin de journée (15 h → 20 h) de jeudi à samedi : le moment où l'aide arrive. */
+const EVENING = HOURS.filter((h) => h >= 15);
+const NARROW = "(max-width: 720px)";
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
+  const [narrow, setNarrow] = useState(() => typeof window !== "undefined" && window.matchMedia(NARROW).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(NARROW);
+    const on = () => setNarrow(mq.matches);
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+  const hours = narrow ? EVENING : HOURS;
+  const courses = narrow ? COURSES.filter((c) => c.hour >= EVENING[0]) : COURSES;
+  const free = narrow ? FREE.filter((c) => c.hour >= EVENING[0]) : FREE;
 
   useGSAP(
     () => {
@@ -38,9 +51,10 @@ export function Hero() {
       const accepted = scope.querySelector<HTMLElement>("[data-state='accepted']")!;
       const meet = gsap.utils.toArray<HTMLElement>(".slot--meet, .slot--label", scope);
       const caret = scope.querySelector<HTMLElement>(".hero__caret")!;
-      const courses = gsap.utils.toArray<HTMLElement>(".slot--course", scope);
+      const courseEls = gsap.utils.toArray<HTMLElement>(".slot--course", scope);
       const words = splitWords(scope.querySelector<HTMLElement>("h1")!);
-      const copy = gsap.utils.toArray<HTMLElement>(".hero__copy > :not(h1)", scope);
+      const copy = gsap.utils.toArray<HTMLElement>(".hero__copy > :not(h1), .hero__more", scope);
+      const board = scope.querySelector<HTMLElement>(".hero__board")!;
       const text = hero.search;
 
       if (prefersReducedMotion()) {
@@ -49,32 +63,46 @@ export function Hero() {
         gsap.set(words, { yPercent: 0 });
         return;
       }
-      // Entrée : le titre monte mot à mot, le reste de la colonne suit, les cours s'impriment sur la grille
+      // Entrée : le titre monte mot à mot derrière sa ligne, la colonne suit, la grille se dévoile puis les cours s'impriment
       gsap.set(words, { yPercent: 110 });
       gsap.set(copy, { autoAlpha: 0, y: 14 });
-      gsap.set(courses, { scaleY: 0.2, autoAlpha: 0, transformOrigin: "50% 100%" });
+      gsap.set(board, { autoAlpha: 0, y: 24 });
+      gsap.set(courseEls, { scaleY: 0.2, autoAlpha: 0, transformOrigin: "50% 100%" });
       const intro = gsap.timeline({ defaults: { ease: "expo.out" } });
-      intro.to(words, { yPercent: 0, duration: 0.9, stagger: 0.05 }, 0.1)
-        .to(copy, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.5)
-        .to(courses, { scaleY: 1, autoAlpha: 1, duration: 0.5, stagger: { each: 0.06, from: "start" } }, 0.3);
-      const tl = gsap.timeline({ repeat: -1, repeatDelay: 3.2, delay: 0.9, defaults: { ease: "expo.out" } });
+      intro.to(words, { yPercent: 0, duration: 0.9, stagger: 0.045 }, 0)
+        .to(copy, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.07 }, 0.45)
+        .to(board, { autoAlpha: 1, y: 0, duration: 0.9 }, 0.35)
+        .to(courseEls, { scaleY: 1, autoAlpha: 1, duration: 0.5, stagger: { each: 0.05, from: "start" } }, 0.6);
+
+      // Le parcours, en boucle : recherche → créneaux libres → demande posée → envoyée → acceptée → rencontre, puis sortie rapide
+      const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.5, delay: 1.1, defaults: { ease: "expo.out" } });
       const typing = { n: 0 };
+      const write = () => { typed.textContent = text.slice(0, Math.round(typing.n)); };
       tl.set(typed, { textContent: "" })
         .set(slots, { autoAlpha: 0, scaleY: 0.3, transformOrigin: "50% 100%" })
         .set(sheet, { autoAlpha: 0, y: -18, rotate: -1.5 })
         .set([sent, accepted, meet], { autoAlpha: 0 })
         .set(caret, { autoAlpha: 1 })
-        .to(typing, { n: text.length, duration: 1.3, ease: "none", onUpdate: () => { typed.textContent = text.slice(0, Math.round(typing.n)); } }, 0.6)
+        .to(typing, { n: text.length, duration: 1.3, ease: "none", onUpdate: write }, 0.5)
         .to(caret, { autoAlpha: 0, duration: 0.2 }, "+=0.3")
-        .to(slots, { autoAlpha: 1, scaleY: 1, duration: 0.55, stagger: { each: 0.12, from: "start" } }, "+=0.1")
-        .to(sheet, { autoAlpha: 1, y: 0, rotate: 0, duration: 0.8 }, "+=0.5")
+        .to(slots, { autoAlpha: 1, scaleY: 1, duration: 0.5, stagger: { each: 0.09, from: "start" } }, "+=0.1")
+        .to(sheet, { autoAlpha: 1, y: 0, rotate: 0, duration: 0.8 }, "+=0.45")
         .to(sent, { autoAlpha: 1, duration: 0.3 }, "<+0.3")
-        .to(sent, { autoAlpha: 0, duration: 0.25 }, "+=1.6")
-        .to(accepted, { autoAlpha: 1, duration: 0.3 }, "<")
-        .to(meet, { autoAlpha: 1, duration: 0.4 }, "<");
-      return () => { tl.kill(); intro.kill(); };
+        .to(sent, { autoAlpha: 0, duration: 0.2, ease: "power2.in" }, "+=1.5")
+        .fromTo(accepted, { autoAlpha: 0, scale: 1.25, rotate: -3 }, { autoAlpha: 1, scale: 1, rotate: 0, duration: 0.45 }, ">")
+        .to(meet, { autoAlpha: 1, duration: 0.5 }, "<+0.1")
+        // sortie plus rapide que l'entrée : la feuille se lève, les créneaux s'éteignent, la recherche s'efface
+        .to(sheet, { autoAlpha: 0, y: -12, duration: 0.35, ease: "power2.in" }, "+=3.2")
+        .to(meet, { autoAlpha: 0, duration: 0.3, ease: "power2.in" }, "<")
+        .to(slots, { autoAlpha: 0, duration: 0.3, stagger: 0.03, ease: "power2.in" }, "<+0.05")
+        .to(typing, { n: 0, duration: 0.35, ease: "none", onUpdate: write }, "<");
+
+      // Pause hors écran : la boucle ne tourne que lorsque la grille est visible
+      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) tl.resume(); else tl.pause(); }, { threshold: 0.05 });
+      io.observe(board);
+      return () => { io.disconnect(); tl.kill(); intro.kill(); };
     },
-    { scope: root },
+    { scope: root, dependencies: [narrow], revertOnUpdate: true },
   );
 
   return (
@@ -93,21 +121,21 @@ export function Hero() {
           </div>
           <div className="hero__cta">
             <ButtonLink to="/rejoindre" size="lg" arrow>{hero.cta}</ButtonLink>
-            <a href="#fonctionnement" className="hero__secondary">{hero.secondary}</a>
+            <ButtonLink to="/app" size="lg" variant="secondary">{hero.demo}</ButtonLink>
           </div>
-          <p className="hero__demo">
-            <Link to="/app">{hero.demo}</Link> <span className="muted">· {hero.demoNote}</span>
-          </p>
         </div>
         <div className="hero__board">
           <Timetable
+            key={narrow ? "soir" : "semaine"}
             printed
+            fullOnMobile
             week="Semaine du 5 au 10 octobre"
-            courses={COURSES}
-            free={FREE}
+            hours={hours}
+            courses={courses}
+            free={free}
             meet={[{ day: 3, hour: 19 }]}
             labels={[{ day: 3, hour: 19, label: "Kevin · Aïcha", sub: "commun" }]}
-            nowLine
+            nowLine={!narrow}
             sheet={{
               day: 4,
               hour: 18,
@@ -129,6 +157,10 @@ export function Hero() {
             <li><i className="legend legend--free" />{hero.legend.free}</li>
             <li><i className="legend legend--sheet" />{hero.legend.sheet}</li>
           </ul>
+        </div>
+        <div className="hero__more">
+          <a href="#fonctionnement" className="hero__secondary">{hero.secondary}</a>
+          <p className="hero__demo"><span className="muted">{hero.demo} : {hero.demoNote}</span></p>
         </div>
       </div>
     </section>

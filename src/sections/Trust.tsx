@@ -5,11 +5,11 @@ export function Trust() {
     <section className="section trust" id="confiance" aria-labelledby="trust-title">
       <div className="wrap trust__grid">
         <div className="trust__copy">
-          <h2 id="trust-title" data-reveal data-split>{trust.title}</h2>
+          <h2 id="trust-title" data-split>{trust.title}</h2>
           <p className="lead" data-reveal>{trust.lead}</p>
           <p className="trust__note" data-reveal>{trust.note}</p>
           <figure className="photo photo--trust" data-reveal>
-            <img src={`/photos/${trust.photo.src}-${trust.photo.w}.webp`} srcSet={`/photos/${trust.photo.src}-${trust.photo.w / 2}.webp ${trust.photo.w / 2}w, /photos/${trust.photo.src}-${trust.photo.w}.webp ${trust.photo.w}w`} sizes="(max-width: 860px) 90vw, 36vw" alt={trust.photo.alt} width={trust.photo.w} height={Math.round(trust.photo.w / trust.photo.ratio)} loading="lazy" decoding="async" />
+            <img src={`/photos/${trust.photo.src}-${trust.photo.w}-web.webp`} srcSet={`/photos/${trust.photo.src}-${trust.photo.w / 2}.webp ${trust.photo.w / 2}w, /photos/${trust.photo.src}-${trust.photo.w}-web.webp ${trust.photo.w}w`} sizes="(max-width: 860px) 90vw, 36vw" alt={trust.photo.alt} width={trust.photo.w} height={Math.round(trust.photo.w / trust.photo.ratio)} loading="lazy" decoding="async" />
             <figcaption>{trust.photo.caption}</figcaption>
           </figure>
         </div>

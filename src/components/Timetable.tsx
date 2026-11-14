@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { DAYS, DAYS_LONG, HOURS } from "../data/mock";
+import { DAYS, DAYS_LONG, HOURS } from "../data/constants";
 import type { Slot } from "../data/types";
 
 /*
@@ -62,7 +62,7 @@ export function Timetable({ courses = [], free = [], inkA = [], inkB = [], meet 
 
   return (
     <div className={`tt-wrap${printed ? " tt-wrap--printed" : ""}${className ? ` ${className}` : ""}`} role="group" aria-label={caption ?? week ?? "Emploi du temps"}>
-      {week ? <div className="tt__week"><span>{week}</span><span className="tt__week-right">8 h → 20 h</span></div> : null}
+      {week ? <div className="tt__week"><span>{week}</span><span className="tt__week-right">{first} h → {last} h</span></div> : null}
       <div className={`tt${compact ? " tt--compact" : ""}${fullOnMobile ? " tt--full" : ""}${onSlotClick ? " tt--editable" : ""}${printed ? " tt--printed" : ""}`} style={style}>
         <div className="tt__corner" aria-hidden="true" />
         {DAYS.map((d, i) => (

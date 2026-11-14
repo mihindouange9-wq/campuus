@@ -3,7 +3,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
-gsap.defaults({ ease: "expo.out", duration: 0.8 });
+/**
+ * Le système de mouvement commun (miroir des jetons CSS --t-touch / --t-state / --t-enter et --ease) :
+ * 160 ms pour un contact, 400 ms pour un changement d'état, 850 ms pour une entrée ; une seule courbe de sortie
+ * (exponentielle) pour ce qui arrive, une accélération courte pour ce qui part (la sortie est plus rapide que l'entrée).
+ */
+export const MOTION = { touch: 0.16, state: 0.4, enter: 0.85, stagger: 0.05, ease: "expo.out", exit: "power2.in" } as const;
+gsap.defaults({ ease: MOTION.ease, duration: MOTION.enter });
 
 export const prefersReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -45,10 +51,9 @@ function splitWords(el: HTMLElement) {
  * - [data-reveal] monte de quelques pixels à l'entrée dans l'écran ;
  * - h1/h2 [data-split] : les mots montent un à un derrière leur ligne ;
  * - .section : le filet de tête se trace de gauche à droite ;
- * - [data-slots] : les créneaux s'impriment de gauche à droite, puis l'encre Cool Horizon glisse par-dessus
- *   l'encre bordeaux (planche « créneaux communs ») ;
- * - [data-stagger] : les enfants arrivent en cascade ; [data-stamp] se pose comme un tampon ;
- * - .pan__band : les bandes horaires se tracent.
+ * - [data-wipe] : le bloc se dévoile derrière un masque, de gauche à droite ;
+ * - [data-stagger] : les enfants arrivent en cascade courte ; [data-stamp] se pose comme un tampon.
+ * Les scènes liées au défilement (trois gestes, mise en relation, grille des capitales) sont dans landingMotion.ts.
  * Tout est visible sans JavaScript : le JS ne retire que ce qu'il anime.
  */
 export function setupReveals(scope: HTMLElement) {
@@ -69,7 +74,7 @@ export function setupReveals(scope: HTMLElement) {
   titles.forEach((t) => { const words = splitWords(t); gsap.set(words, { yPercent: 110 }); });
   once("[data-split]", "0px 0px -10% 0px", (el) => {
     const words = el.querySelectorAll(".w > span");
-    gsap.to(words, { yPercent: 0, duration: 0.9, stagger: 0.045, ease: "expo.out" });
+    gsap.to(words, { yPercent: 0, duration: MOTION.enter, stagger: 0.04, ease: MOTION.ease });
   });
 
   // Blocs
@@ -79,71 +84,39 @@ export function setupReveals(scope: HTMLElement) {
     const seen = entries.filter((e) => e.isIntersecting).map((e) => e.target);
     if (!seen.length) return;
     seen.forEach((el) => io.unobserve(el));
-    gsap.to(seen, { autoAlpha: 1, y: 0, stagger: 0.06, overwrite: true });
+    gsap.to(seen, { autoAlpha: 1, y: 0, duration: MOTION.enter, stagger: MOTION.stagger, overwrite: true });
   }, { rootMargin: "0px 0px -8% 0px" });
   blocks.forEach((el) => io.observe(el));
   cleanups.push(() => io.disconnect());
 
   // Filets de section
-  once(".section, .site-footer", "0px 0px -5% 0px", (el) => el.classList.add("is-in"));
+  once(".section, .site-footer, .how, .final", "0px 0px -5% 0px", (el) => el.classList.add("is-in"));
 
-  // Créneaux qui s'impriment, puis encre qui glisse
-  once("[data-slots]", "0px 0px -15% 0px", (el) => {
-    const printed = gsap.utils.toArray<HTMLElement>(".slot--free, .slot--course, .slot--inkA", el);
-    const ink = gsap.utils.toArray<HTMLElement>(".slot--inkB", el);
-    const labels = gsap.utils.toArray<HTMLElement>(".slot--label", el);
-    const tl = gsap.timeline();
-    tl.fromTo(printed, { scaleY: 0.2, autoAlpha: 0, transformOrigin: "50% 100%" }, { scaleY: 1, autoAlpha: 1, duration: 0.5, stagger: { each: 0.05, from: "start" } });
-    if (ink.length) {
-      tl.fromTo(ink, { x: 56, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.9, stagger: 0.06, ease: "expo.out" }, "+=0.2")
-        .fromTo(labels, { autoAlpha: 0, scale: 1.3 }, { autoAlpha: 1, scale: 1, duration: 0.4, stagger: 0.08, ease: "expo.out" }, "-=0.3");
-    }
-  });
+  // Volets : le bloc se dévoile de gauche à droite derrière un masque (clip-path), sans déplacer la mise en page
+  // (dans un carrousel horizontal, les cartes restent visibles : on ne masque pas ce qui se fait glisser au doigt)
+  const wipes = gsap.utils.toArray<HTMLElement>("[data-wipe]", scope).filter((el) => !el.parentElement || getComputedStyle(el.parentElement).overflowX === "visible");
+  gsap.set(wipes, { clipPath: "inset(0 100% 0 0)", autoAlpha: 0 });
+  const wipeIo = new IntersectionObserver((entries) => {
+    const seen = entries.filter((e) => e.isIntersecting).map((e) => e.target);
+    if (!seen.length) return;
+    seen.forEach((el) => wipeIo.unobserve(el));
+    gsap.to(seen, { clipPath: "inset(0 0% 0 0)", autoAlpha: 1, duration: MOTION.enter, stagger: 0.07, ease: MOTION.ease, clearProps: "clipPath" });
+  }, { rootMargin: "0px 0px -8% 0px" });
+  wipes.forEach((el) => wipeIo.observe(el));
+  cleanups.push(() => wipeIo.disconnect());
 
   // Cascades et tampons
   const groups = gsap.utils.toArray<HTMLElement>("[data-stagger]", scope);
   groups.forEach((g) => gsap.set(g.children, { autoAlpha: 0, y: 14 }));
   once("[data-stagger]", "0px 0px -12% 0px", (el) => {
     const tl = gsap.timeline();
-    tl.to(el.children, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.14 });
+    tl.to(el.children, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.08 });
     const stamps = gsap.utils.toArray<HTMLElement>("[data-stamp]", el);
     if (stamps.length) tl.fromTo(stamps, { autoAlpha: 0, scale: 1.25, rotate: -2 }, { autoAlpha: 1, scale: 1, rotate: 0, duration: 0.5, stagger: 0.1, ease: "expo.out" }, "-=0.1");
   });
   const loneStamps = gsap.utils.toArray<HTMLElement>("[data-stamp]", scope).filter((s) => !s.closest("[data-stagger]"));
   gsap.set(loneStamps, { autoAlpha: 0, scale: 1.25, rotate: -2 });
   once("[data-stamp]", "0px 0px -12% 0px", (el) => { if (!el.closest("[data-stagger]")) gsap.to(el, { autoAlpha: 1, scale: 1, rotate: 0, duration: 0.5, ease: "expo.out" }); });
-
-  // Bandes horaires
-  const bands = gsap.utils.toArray<HTMLElement>(".pan__band", scope);
-  gsap.set(bands, { scaleX: 0, transformOrigin: "0 50%" });
-  once(".pan__chart", "0px 0px -15% 0px", (el) => {
-    gsap.to(gsap.utils.toArray<HTMLElement>(".pan__band", el), { scaleX: 1, duration: 0.9, stagger: 0.08, ease: "expo.out" });
-    gsap.fromTo(gsap.utils.toArray<HTMLElement>(".pan__dot", el), { scale: 0 }, { scale: 1, duration: 0.5, stagger: 0.1, delay: 0.6, ease: "back.out(2)" });
-  });
-
-  // Les trois gestes : les écrans jouent l'un après l'autre
-  once(".how__steps", "0px 0px -15% 0px", (el) => {
-    const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-    const typed = el.querySelector<HTMLElement>(".mini__search span");
-    const suggest = gsap.utils.toArray<HTMLElement>(".mini__suggest li", el);
-    const results = gsap.utils.toArray<HTMLElement>(".mini__results li", el);
-    const filters = gsap.utils.toArray<HTMLElement>(".mini__filters .tag", el);
-    const formRows = gsap.utils.toArray<HTMLElement>(".mini__form .mini__value", el);
-    const send = el.querySelector<HTMLElement>(".mini__send .btn");
-    const after = el.querySelector<HTMLElement>(".mini__after");
-    if (typed) {
-      const text = typed.textContent ?? "";
-      const o = { n: 0 };
-      typed.textContent = "";
-      tl.to(o, { n: text.length, duration: 0.9, ease: "none", onUpdate: () => { typed.textContent = text.slice(0, Math.round(o.n)); } }, 0.2);
-    }
-    tl.fromTo(suggest, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.1 }, "-=0.2")
-      .fromTo(filters, { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.35, stagger: 0.08 }, "+=0.1")
-      .fromTo(results, { autoAlpha: 0, x: -14 }, { autoAlpha: 1, x: 0, duration: 0.5, stagger: 0.12 }, "-=0.1")
-      .fromTo(formRows, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35, stagger: 0.1 }, "+=0.1");
-    if (send) tl.fromTo(send, { scale: 1 }, { scale: 0.94, duration: 0.12, yoyo: true, repeat: 1, ease: "power1.inOut" }, "+=0.2");
-    if (after) tl.fromTo(after, { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.5 }, "+=0.5");
-  });
 
   return () => cleanups.forEach((c) => c());
 }
@@ -183,6 +156,13 @@ export function setupProgress(bar: HTMLElement) {
   window.addEventListener("scroll", update, { passive: true });
   window.addEventListener("resize", update);
   return () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+}
+
+/** Met en pause le canvas de fond (la nuance) sur les écrans dont les surfaces sont opaques : pages secondaires, application. */
+export function pauseNuance() {
+  const html = document.documentElement;
+  html.dataset.nuance = "off";
+  return () => { delete html.dataset.nuance; };
 }
 
 export { gsap, ScrollTrigger, useGSAP };

@@ -1,3 +1,4 @@
+import type React from "react";
 import { panafrican } from "../content/fr";
 
 /*
@@ -12,10 +13,10 @@ export function PanAfrican() {
     <section className="section pan" id="panafricain" aria-labelledby="pan-title">
       <div className="wrap">
         <div className="pan__head">
-          <h2 id="pan-title" data-reveal data-split>{panafrican.title}</h2>
+          <h2 id="pan-title" data-split>{panafrican.title}</h2>
           <p className="lead" data-reveal>{panafrican.lead}</p>
         </div>
-        <div className="pan__chart" data-reveal role="img" aria-label="Grille des heures de révision partagées entre neuf villes d'Afrique francophone, de 19 h à 22 h heure de Libreville">
+        <div className="pan__chart" data-scene="pan" role="img" aria-label="Grille des heures de révision partagées entre neuf villes d'Afrique francophone, de 19 h à 22 h heure de Libreville">
           <div className="pan__hours" aria-hidden="true">
             <span />
             {HOURS.map((h) => <span key={h} className="num">{h} h</span>)}
@@ -32,11 +33,6 @@ export function PanAfrican() {
               </span>
             </div>
           ))}
-          <svg className="pan__links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M50 8 C 60 20, 60 30, 50 36" />
-            <path d="M50 8 C 40 40, 40 60, 50 66" />
-            <path d="M50 22 C 62 40, 62 70, 50 92" />
-          </svg>
         </div>
         <ul className="pan__legend" data-reveal>
           <li><i className="legend legend--course" />{panafrican.legend.pilot}</li>
