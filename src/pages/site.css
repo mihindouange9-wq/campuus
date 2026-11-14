@@ -467,7 +467,24 @@ main.landing { animation: page-in var(--t-state) var(--ease) both; }
 .intro__word { display: inline-flex; font-family: var(--font-mark); font-weight: 800; font-size: clamp(2.75rem, 8.6vw, 7rem); line-height: 1; letter-spacing: -0.045em; color: var(--papier); }
 .intro__word > span { display: inline-block; overflow: hidden; padding-block: 0.06em; }
 .intro__word > span > span { display: inline-block; will-change: transform; }
-.intro__flash { position: absolute; inset: 0; background: var(--cinabre); transform: scaleX(0); transform-origin: 0 50%; will-change: transform; }
+.intro__logo { will-change: transform; }
+.intro__mark { transform-origin: 50% 50%; will-change: transform; }
+/* la grille d'emploi du temps, langage du produit : 24 cases, 6 colonnes (4 sur téléphone) */
+.intro__grid { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(4, 1fr); }
+.intro__cell { position: relative; border-right: 1px solid var(--rule-on-dark); border-bottom: 1px solid var(--rule-on-dark); visibility: hidden; }
+.intro__cell i { position: absolute; inset: 0; background: var(--cinabre); transform: scaleY(0); transform-origin: 50% 100%; }
+.intro__cell:not(.intro__cell--hot) i { display: none; }
+/* les fragments de la phrase, un à la fois, au centre */
+.intro__say { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; pointer-events: none; }
+.intro__say > span { grid-area: 1 / 1; display: block; overflow: hidden; padding: 0.3em 0.04em 0.1em; font-size: clamp(3rem, 13vw, 13rem); }
+.intro__say > span > span { display: block; font-family: var(--font-title); font-size: clamp(3rem, 13vw, 13rem); line-height: 0.9; letter-spacing: -0.015em; text-transform: uppercase; white-space: nowrap; color: var(--papier); will-change: transform; }
+.intro__say > span:nth-child(3) > span { color: var(--cinabre); }
+.intro__meta { position: absolute; left: var(--gutter, 1.25rem); right: var(--gutter, 1.25rem); bottom: clamp(1rem, 3vw, 2rem); display: grid; gap: 0.6rem; }
+.intro__count { font-family: var(--font-title); font-size: clamp(2.25rem, 6vw, 5rem); line-height: 1; color: var(--papier); font-variant-numeric: tabular-nums; }
+.intro__line { display: block; height: 1px; background: var(--papier); transform: scaleX(0); transform-origin: 0 50%; will-change: transform; }
+.intro__cols { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, 1fr); pointer-events: none; }
+.intro__col { background: var(--cinabre); transform: scaleY(0); transform-origin: 50% 100%; will-change: transform; margin-inline: -0.5px; }
+@media (max-width: 720px) { .intro__grid { grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(6, 1fr); } }
 .veil3 { position: fixed; inset: 0; z-index: 90; background: var(--cinabre); visibility: hidden; pointer-events: none; will-change: transform; }
 
 .hero3__more { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; color: var(--hero-fg); font-size: 0.8125rem; font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.3em; transition: color var(--t-app) var(--ease); }

@@ -25,6 +25,11 @@ const OLD_ANCHORS: Record<string, string> = {
 
 const U = (dx: number) => `M${10 + dx} 10H${24 + dx}V54a11 11 0 0 0 22 0V10H${60 + dx}V54a25 25 0 0 1-50 0Z`;
 
+/** Fragments de la phrase d'ouverture, montrés un à un pendant l'animation. */
+const SAY = ["Bloqué", "sur un cours ?", "Trouve quelqu'un"];
+/** Créneaux qui s'allument dans la grille. */
+const HOT = [5, 18, 23];
+
 function Intro({ onEnd }: { onEnd: () => void }) {
   const root = useRef<HTMLDivElement>(null);
   const end = useRef(onEnd);
@@ -42,17 +47,33 @@ function Intro({ onEnd }: { onEnd: () => void }) {
       end.current();
     };
     const tl = gsap.timeline({ defaults: { ease: "expo.out" }, onComplete: finish });
-    // 1. le symbole s'assemble : chaque U descend derrière son masque et rejoint l'autre
-    tl.fromTo(".intro__u--a", { clipPath: "inset(0 0 100% 0)", x: -14 }, { clipPath: "inset(0 0 0% 0)", x: 0, duration: 0.6 }, 0.05)
-      .fromTo(".intro__u--b", { clipPath: "inset(0 0 100% 0)", x: 14 }, { clipPath: "inset(0 0 0% 0)", x: 0, duration: 0.6 }, 0.16)
-      // 2. le mot-symbole monte lettre à lettre
-      .fromTo(".intro__word span > span", { yPercent: 110 }, { yPercent: 0, duration: 0.6, stagger: 0.035 }, 0.42)
-      // 3. l'éclat Cinabre balaie l'écran…
-      .fromTo(".intro__flash", { scaleX: 0 }, { scaleX: 1, duration: 0.42, ease: "expo.inOut" }, 1.18)
-      .set(".intro__bg, .intro__logo", { autoAlpha: 0 }, 1.6)
-      .add(() => introDone(), 1.6)
-      // …et découvre la page, dont le titre enchaîne sa propre révélation
-      .to(".intro__flash", { scaleX: 0, transformOrigin: "100% 50%", duration: 0.44, ease: "expo.inOut" }, 1.6);
+    const count = el.querySelector<HTMLElement>(".intro__count");
+    const n = { v: 0 };
+    // Cinq secondes, cinq temps. 1. La grille d'un emploi du temps s'allume case par case, le compteur part.
+    tl.fromTo(".intro__cell", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, stagger: { each: 0.022, from: "random" } }, 0)
+      .to(n, { v: 100, duration: 3.8, ease: "power2.inOut", onUpdate: () => { if (count) count.textContent = String(Math.round(n.v)).padStart(3, "0"); } }, 0)
+      .fromTo(".intro__line", { scaleX: 0 }, { scaleX: 1, duration: 3.8, ease: "power2.inOut" }, 0);
+    // 2. Les fragments de la phrase passent en grand, chacun dans son masque
+    gsap.utils.toArray<HTMLElement>(".intro__say > span > span", el).forEach((w, i) => {
+      // un fragment sort avant que le suivant n'entre : jamais deux à l'écran
+      const t = 0.25 + i * 0.7;
+      // course plus longue que le masque et sa marge : rien ne dépasse avant l'entrée ni après la sortie
+      tl.fromTo(w, { yPercent: 170, autoAlpha: 1 }, { yPercent: 0, duration: 0.45 }, t).to(w, { yPercent: -170, duration: 0.26, ease: "expo.in" }, t + 0.43).set(w, { autoAlpha: 0 }, t + 0.7);
+    });
+    // 3. Trois créneaux s'allument en Cinabre : quelqu'un est disponible
+    tl.fromTo(".intro__cell--hot i", { scaleY: 0 }, { scaleY: 1, duration: 0.45, stagger: 0.09 }, 1.7)
+      // 4. Le symbole s'assemble, chaque U descend derrière son masque ; le mot-symbole monte lettre à lettre
+      .fromTo(".intro__mark", { scale: 1.7 }, { scale: 1, duration: 1.2 }, 2.36)
+      .fromTo(".intro__u--a", { clipPath: "inset(0 0 100% 0)", x: -18 }, { clipPath: "inset(0 0 0% 0)", x: 0, duration: 0.8 }, 2.36)
+      .fromTo(".intro__u--b", { clipPath: "inset(0 0 100% 0)", x: 18 }, { clipPath: "inset(0 0 0% 0)", x: 0, duration: 0.8 }, 2.5)
+      .fromTo(".intro__word span > span", { yPercent: 112 }, { yPercent: 0, duration: 0.7, stagger: 0.045 }, 2.85)
+      .to(".intro__cell", { autoAlpha: 0, duration: 0.3, ease: "power1.in", stagger: { each: 0.012, from: "random" } }, 3.3)
+      .to(".intro__logo", { scale: 1.05, duration: 0.7, ease: "power1.inOut" }, 3.3)
+      // 5. Cinq volets Cinabre montent en cascade, puis se retirent et découvrent la page
+      .fromTo(".intro__col", { scaleY: 0 }, { scaleY: 1, duration: 0.38, ease: "expo.inOut", stagger: 0.05 }, 3.85)
+      .set(".intro__bg, .intro__logo, .intro__grid, .intro__say, .intro__meta", { autoAlpha: 0 }, 4.44)
+      .add(() => introDone(), 4.44)
+      .to(".intro__col", { scaleY: 0, transformOrigin: "50% 0%", duration: 0.38, ease: "expo.inOut", stagger: 0.04 }, 4.46);
     // un clic, un toucher ou une touche passe l'animation
     const skip = () => {
       if (finished) return;
@@ -68,6 +89,14 @@ function Intro({ onEnd }: { onEnd: () => void }) {
   return (
     <div className="intro" ref={root} aria-hidden="true">
       <div className="intro__bg" />
+      <div className="intro__grid">
+        {Array.from({ length: 24 }, (_, i) => (
+          <span key={i} className={HOT.includes(i) ? "intro__cell intro__cell--hot" : "intro__cell"}><i /></span>
+        ))}
+      </div>
+      <p className="intro__say">
+        {SAY.map((w) => <span key={w}><span>{w}</span></span>)}
+      </p>
       <div className="intro__logo">
         <svg className="intro__mark" viewBox="0 0 100 90" width="104" height="94">
           <defs><clipPath id="intro-u"><path d={U(0)} /></clipPath></defs>
@@ -79,7 +108,13 @@ function Intro({ onEnd }: { onEnd: () => void }) {
         </svg>
         <span className="intro__word">{"CAMPUUS".split("").map((c, i) => <span key={i}><span>{c}</span></span>)}</span>
       </div>
-      <div className="intro__flash" />
+      <div className="intro__meta">
+        <span className="intro__count">000</span>
+        <span className="intro__line" />
+      </div>
+      <div className="intro__cols">
+        {[0, 1, 2, 3, 4].map((k) => <span key={k} className="intro__col" />)}
+      </div>
     </div>
   );
 }
